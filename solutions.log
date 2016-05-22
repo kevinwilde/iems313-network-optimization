@@ -1,0 +1,561 @@
+################################### BASE CASE ##################################
+
+network_design.mod, line 161 (offset 6116):
+	bigM_tracks_constraint is already defined
+context:  subject to  >>> bigM_tracks_constraint  <<< {(i,j) in ARCS: i < j}:
+ampl: include network_design.run;
+################################### BASE CASE ##################################
+
+network_design.mod, line 163 (offset 6231):
+	bigM_tracks_constraint2 is already defined
+context:  subject to  >>> bigM_tracks_constraint2  <<< {(i,j) in ARCS: i > j}:
+ampl: include network_design.run;
+################################### BASE CASE ##################################
+Error at _cmdno 3 executing "solve" command
+(file network_design.run, line 26, offset 736):
+error processing constraint bigM_existing_tracks_constraint2[2,1]:
+	invalid subscript tracks_exist[2,1]
+ampl: include network_design.run;
+################################### BASE CASE ##################################
+CPLEX 12.6.3.0: mipdisplay=2
+mipgap=1e-8
+MIP Presolve modified 20 coefficients.
+Reduced MIP has 82 rows, 119 columns, and 367 nonzeros.
+Reduced MIP has 44 binaries, 75 generals, 0 SOSs, and 0 indicators.
+Found incumbent of value 155219.184735 after 0.00 sec. (0.42 ticks)
+Probing time = 0.00 sec. (0.03 ticks)
+Reduced MIP has 82 rows, 119 columns, and 367 nonzeros.
+Reduced MIP has 44 binaries, 75 generals, 0 SOSs, and 0 indicators.
+Probing time = 0.00 sec. (0.03 ticks)
+Clique table members: 27.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 4 threads.
+Root relaxation solution time = 0.00 sec. (0.20 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                       155219.1847    -3737.7112           102.41%
+*     0+    0                        38330.2470    -3737.7112           109.75%
+      0     0        0.0000     2    38330.2470        0.0000       18  100.00%
+*     0+    0                            0.0000        0.0000             0.00%
+      0     0        cutoff              0.0000        0.0000       18    0.00%
+Elapsed time = 0.00 sec. (1.14 ticks, tree = 0.01 MB)
+
+Root node processing (before b&c):
+  Real time             =    0.00 sec. (1.14 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.00 sec. (1.14 ticks)
+CPLEX 12.6.3.0: optimal integer solution; objective 0
+18 MIP simplex iterations
+0 branch-and-bound nodes
+No basis.
+
+Number of reloading buildings at each station:
+x_num_reload_bldg [*] :=
+1  1
+2  1
+3  2
+4  3
+5  2
+6  2
+7  3
+;
+
+Line exists between stations i and j:
+x_line_exist :=
+1 2   0
+1 3   1
+1 4   1
+1 5   0
+1 6   0
+2 3   0
+2 5   1
+2 7   0
+3 4   0
+3 5   1
+3 6   0
+3 7   0
+4 5   0
+4 6   1
+5 6   0
+5 7   1
+6 7   1
+;
+
+Number of tracks from station i to station j:
+x_num_tracks [*,*]
+:   1   2   3   4   5   6   7    :=
+1   .   0   1   0   0   0   .
+2   0   .   0   .   0   .   0
+3   0   0   .   0   1   0   0
+4   1   .   0   .   0   1   .
+5   0   1   0   0   .   0   1
+6   0   .   0   0   0   .   1
+7   .   0   0   .   0   0   .
+;
+
+Number of units of shipment from station s to station d that go on arc (i,j):
+x_num_units [3,2,*,*]
+:   1   2   3   4   5   6   7    :=
+1   .   0   0   0   0   0   .
+2   0   .   0   .   0   .   0
+3   0   0   .   0   3   0   0
+4   0   .   0   .   0   0   .
+5   0   3   0   0   .   0   0
+6   0   .   0   0   0   .   0
+7   .   0   0   .   0   0   .
+
+ [4,7,*,*]
+:   1   2   3   4   5   6    7     :=
+1   .   0   1   0   0    0   .
+2   0   .   0   .   0   .     0
+3   0   0   .   0   1    0    0
+4   1   .   0   .   0   10   .
+5   0   0   0   0   .    0    1
+6   0   .   0   0   0   .    10
+7   .   0   0   .   0    0   .
+;
+
+################################### SCENARIO 1 #################################
+CPLEX 12.6.3.0: mipdisplay=2
+mipgap=1e-8
+MIP Presolve modified 20 coefficients.
+Reduced MIP has 89 rows, 153 columns, and 503 nonzeros.
+Reduced MIP has 10 binaries, 143 generals, 0 SOSs, and 0 indicators.
+Found incumbent of value 452036.650327 after 0.00 sec. (0.52 ticks)
+Probing time = 0.00 sec. (0.01 ticks)
+Reduced MIP has 89 rows, 153 columns, and 503 nonzeros.
+Reduced MIP has 10 binaries, 143 generals, 0 SOSs, and 0 indicators.
+Probing time = 0.00 sec. (0.01 ticks)
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 4 threads.
+Root relaxation solution time = 0.02 sec. (0.33 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                       452036.6503    -3737.7112           100.83%
+*     0+    0                       326550.4057    -3737.7112           101.14%
+      0     0     1546.5288     8   326550.4057     1546.5288       36   99.53%
+*     0+    0                         4604.4734     1546.5288            66.41%
+      0     0     1591.8470    22     4604.4734      Cuts: 14       47   65.43%
+*     0+    0                         4370.4375     1591.8470            63.58%
+      0     0     1862.2892    32     4370.4375      Cuts: 17       66   57.39%
+      0     0     1960.1422    42     4370.4375      Cuts: 18       80   55.15%
+      0     0     1992.3202    40     4370.4375      Cuts: 12       94   54.41%
+      0     0     2021.5554    45     4370.4375       Cuts: 9      104   53.74%
+      0     0     2038.9113    40     4370.4375      Cuts: 12      112   53.35%
+      0     0     2128.0458    40     4370.4375       Cuts: 7      127   51.31%
+      0     0     2162.9093    46     4370.4375       Cuts: 8      139   50.51%
+      0     0     2203.8348    45     4370.4375      Cuts: 10      150   49.57%
+      0     0     2213.9486    54     4370.4375       Cuts: 3      154   49.34%
+      0     0     2217.7917    49     4370.4375      Cuts: 11      156   49.25%
+      0     0     2237.6604    52     4370.4375   ZeroHalf: 5      169   48.80%
+      0     0     2249.0415    56     4370.4375       Cuts: 7      182   48.54%
+      0     0     2259.9584    54     4370.4375      Cuts: 10      194   48.29%
+      0     0     2260.2300    57     4370.4375       Cuts: 6      196   48.28%
+      0     0     2267.1225    61     4370.4375       Cuts: 9      207   48.13%
+      0     0     2268.5011    58     4370.4375       Cuts: 7      213   48.09%
+      0     0     2269.8856    61     4370.4375       Cuts: 4      217   48.06%
+      0     0     2271.8002    56     4370.4375   ZeroHalf: 4      222   48.02%
+      0     0     2290.2431    58     4370.4375       Cuts: 4      230   47.60%
+      0     0     2297.5520    60     4370.4375       Cuts: 8      254   47.43%
+      0     0     2298.0975    44     4370.4375       Cuts: 9      259   47.42%
+      0     0     2298.0975    45     4370.4375        MCF: 1      260   47.42%
+*     0+    0                         3697.0563     2298.0975            37.84%
+      0     0        cutoff           3697.0563     3697.0563      260    0.00%
+Elapsed time = 0.08 sec. (28.68 ticks, tree = 0.01 MB)
+
+Flow cuts applied:  10
+Mixed integer rounding cuts applied:  14
+Flow path cuts applied:  1
+Zero-half cuts applied:  9
+Multi commodity flow cuts applied:  4
+Lift and project cuts applied:  1
+
+Root node processing (before b&c):
+  Real time             =    0.08 sec. (28.68 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.08 sec. (28.68 ticks)
+CPLEX 12.6.3.0: optimal integer solution; objective 3697.056275
+260 MIP simplex iterations
+0 branch-and-bound nodes
+No basis.
+
+Number of reloading buildings at each station:
+x_num_reload_bldg [*] :=
+1  1
+2  2
+3  2
+4  3
+5  3
+6  2
+7  3
+;
+
+Line exists between stations i and j:
+x_line_exist :=
+1 2   0
+1 3   1
+1 4   1
+1 5   0
+1 6   0
+2 3   0
+2 5   1
+2 7   0
+3 4   0
+3 5   1
+3 6   0
+3 7   0
+4 5   0
+4 6   1
+5 6   1
+5 7   1
+6 7   1
+;
+
+Number of tracks from station i to station j:
+x_num_tracks [*,*]
+:   1   2   3   4   5   6   7    :=
+1   .   0   1   0   0   0   .
+2   0   .   0   .   0   .   0
+3   0   0   .   0   1   0   0
+4   1   .   0   .   0   1   .
+5   0   1   0   0   .   0   1
+6   0   .   0   0   1   .   1
+7   .   0   0   .   0   0   .
+;
+
+Number of units of shipment from station s to station d that go on arc (i,j):
+x_num_units [3,2,*,*]
+:   1   2   3   4   5   6   7    :=
+1   .   0   0   0   0   0   .
+2   0   .   0   .   0   .   0
+3   0   0   .   0   3   0   0
+4   0   .   0   .   0   0   .
+5   0   3   0   0   .   0   0
+6   0   .   0   0   0   .   0
+7   .   0   0   .   0   0   .
+
+ [4,7,*,*]
+:   1   2   3   4   5   6   7    :=
+1   .   0   5   0   0   0   .
+2   0   .   0   .   0   .   0
+3   0   0   .   0   5   0   0
+4   5   .   0   .   0   6   .
+5   0   0   0   0   .   0   5
+6   0   .   0   0   0   .   6
+7   .   0   0   .   0   0   .
+
+ [6,2,*,*]
+:   1   2   3   4   5   6   7    :=
+1   .   0   0   0   0   0   .
+2   0   .   0   .   0   .   0
+3   0   0   .   0   0   0   0
+4   0   .   0   .   0   0   .
+5   0   7   0   0   .   0   0
+6   0   .   0   0   7   .   0
+7   .   0   0   .   0   0   .
+;
+
+################################### SCENARIO 2 #################################
+CPLEX 12.6.3.0: mipdisplay=2
+mipgap=1e-8
+MIP Presolve modified 20 coefficients.
+Reduced MIP has 89 rows, 153 columns, and 503 nonzeros.
+Reduced MIP has 10 binaries, 143 generals, 0 SOSs, and 0 indicators.
+Found incumbent of value 452036.650327 after 0.00 sec. (0.52 ticks)
+Probing time = 0.00 sec. (0.01 ticks)
+Reduced MIP has 89 rows, 153 columns, and 503 nonzeros.
+Reduced MIP has 10 binaries, 143 generals, 0 SOSs, and 0 indicators.
+Probing time = 0.00 sec. (0.01 ticks)
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 4 threads.
+Root relaxation solution time = 0.02 sec. (0.34 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                       452036.6503    -3737.7112           100.83%
+*     0+    0                       322897.6761    -3737.7112           101.16%
+      0     0     2278.3548     7   322897.6761     2278.3548       41   99.29%
+*     0+    0                         5239.0074     2278.3548            56.51%
+      0     0     3076.3811    15     5239.0074      Cuts: 19       53   41.28%
+      0     0     3722.0021    27     5239.0074      Cuts: 14       70   28.96%
+      0     0     3856.1336    34     5239.0074      Cuts: 11       90   26.40%
+      0     0     3938.5075    45     5239.0074      Cuts: 15      111   24.82%
+      0     0     3981.6698    45     5239.0074      Cuts: 17      130   24.00%
+      0     0     3990.3944    51     5239.0074      Cuts: 13      142   23.83%
+      0     0     4031.9209    30     5239.0074      Cuts: 11      167   23.04%
+      0     0     4059.9067    43     5239.0074       Cuts: 7      172   22.51%
+      0     0     4084.5872    47     5239.0074       Cuts: 9      186   22.04%
+      0     0     4148.4323    47     5239.0074      Cuts: 12      212   20.82%
+      0     0     4418.7966    41     5239.0074      Cuts: 19      247   15.66%
+*     0+    0                         4897.3666     4418.7966             9.77%
+      0     0     4460.8926    44     4897.3666      Cuts: 11      269    8.91%
+      0     0     4502.9459    43     4897.3666      Cuts: 14      287    8.05%
+      0     0     4574.3499    35     4897.3666      Cuts: 16      302    6.60%
+      0     0     4610.1586    40     4897.3666       Cuts: 6      312    5.86%
+      0     0     4691.9009    37     4897.3666      Cuts: 11      333    4.20%
+      0     0        cutoff           4897.3666     4897.3666      333    0.00%
+Elapsed time = 0.06 sec. (16.51 ticks, tree = 0.01 MB)
+
+Flow cuts applied:  2
+Mixed integer rounding cuts applied:  10
+Zero-half cuts applied:  5
+Multi commodity flow cuts applied:  2
+Lift and project cuts applied:  1
+
+Root node processing (before b&c):
+  Real time             =    0.06 sec. (16.51 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.06 sec. (16.51 ticks)
+CPLEX 12.6.3.0: optimal integer solution; objective 4897.366596
+333 MIP simplex iterations
+0 branch-and-bound nodes
+No basis.
+
+Number of reloading buildings at each station:
+x_num_reload_bldg [*] :=
+1  2
+2  3
+3  2
+4  3
+5  2
+6  2
+7  3
+;
+
+Line exists between stations i and j:
+x_line_exist :=
+1 2   0
+1 3   1
+1 4   1
+1 5   0
+1 6   0
+2 3   1
+2 5   1
+2 7   0
+3 4   0
+3 5   1
+3 6   0
+3 7   0
+4 5   0
+4 6   1
+5 6   0
+5 7   1
+6 7   1
+;
+
+Number of tracks from station i to station j:
+x_num_tracks [*,*]
+:   1   2   3   4   5   6   7    :=
+1   .   0   1   0   0   0   .
+2   0   .   0   .   0   .   0
+3   0   1   .   0   1   0   0
+4   1   .   0   .   0   1   .
+5   0   1   0   0   .   0   1
+6   0   .   0   0   0   .   1
+7   .   0   0   .   0   0   .
+;
+
+Number of units of shipment from station s to station d that go on arc (i,j):
+x_num_units [3,2,*,*]
+:   1   2   3   4   5   6   7    :=
+1   .   0   0   0   0   0   .
+2   0   .   0   .   0   .   0
+3   0   1   .   0   2   0   0
+4   0   .   0   .   0   0   .
+5   0   2   0   0   .   0   0
+6   0   .   0   0   0   .   0
+7   .   0   0   .   0   0   .
+
+ [4,2,*,*]
+:   1   2   3   4   5   6   7    :=
+1   .   0   9   0   0   0   .
+2   0   .   0   .   0   .   0
+3   0   2   .   0   7   0   0
+4   9   .   0   .   0   0   .
+5   0   7   0   0   .   0   0
+6   0   .   0   0   0   .   0
+7   .   0   0   .   0   0   .
+
+ [4,7,*,*]
+:   1   2   3   4   5   6    7     :=
+1   .   0   1   0   0    0   .
+2   0   .   0   .   0   .     0
+3   0   0   .   0   1    0    0
+4   1   .   0   .   0   10   .
+5   0   0   0   0   .    0    1
+6   0   .   0   0   0   .    10
+7   .   0   0   .   0    0   .
+;
+
+################################### SCENARIO 3 #################################
+CPLEX 12.6.3.0: mipdisplay=2
+mipgap=1e-8
+MIP Presolve modified 20 coefficients.
+Reduced MIP has 96 rows, 187 columns, and 639 nonzeros.
+Reduced MIP has 10 binaries, 177 generals, 0 SOSs, and 0 indicators.
+Found incumbent of value 588036.650327 after 0.01 sec. (0.65 ticks)
+Probing time = 0.00 sec. (0.02 ticks)
+Reduced MIP has 96 rows, 187 columns, and 639 nonzeros.
+Reduced MIP has 10 binaries, 177 generals, 0 SOSs, and 0 indicators.
+Probing time = 0.00 sec. (0.02 ticks)
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 4 threads.
+Root relaxation solution time = 0.00 sec. (0.38 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                       588036.6503    -3737.7112           100.64%
+*     0+    0                       469458.3025    -3737.7112           100.80%
+      0     0     1213.2107    23   469458.3025     1213.2107       36   99.74%
+*     0+    0                         7819.6772     1213.2107            84.49%
+      0     0     1630.5678    31     7819.6772      Cuts: 30       56   79.15%
+      0     0     1879.6376    45     7819.6772      Cuts: 40       85   75.96%
+      0     0     1956.5442    64     7819.6772      Cuts: 18      109   74.98%
+      0     0     2337.2165    54     7819.6772      Cuts: 34      146   70.11%
+      0     0     2475.3915    68     7819.6772      Cuts: 20      163   68.34%
+      0     0     2902.2650    75     7819.6772      Cuts: 32      192   62.89%
+      0     0     2988.4229    69     7819.6772      Cuts: 27      214   61.78%
+      0     0     3189.5384    72     7819.6772      Cuts: 17      245   59.21%
+      0     0     3198.8215    60     7819.6772      Cuts: 17      255   59.09%
+      0     0     3209.3878    69     7819.6772       Cuts: 9      267   58.96%
+      0     0     3213.8065    73     7819.6772       Cuts: 6      279   58.90%
+      0     0     3218.9273    76     7819.6772        MCF: 2      288   58.84%
+      0     0     3225.7192    75     7819.6772      Cuts: 14      305   58.75%
+      0     0     3231.9222    78     7819.6772       Cuts: 8      324   58.67%
+      0     0     3232.5726    72     7819.6772   Flowcuts: 2      330   58.66%
+      0     0     3235.7585    77     7819.6772       Cuts: 3      337   58.62%
+      0     0     3237.8080    72     7819.6772       Cuts: 7      349   58.59%
+      0     0     3237.8852    65     7819.6772       Cuts: 3      356   58.59%
+      0     0     3237.8882    70     7819.6772   Flowcuts: 1      358   58.59%
+*     0+    0                         4007.1068     3237.8882            19.20%
+      0     0        cutoff           4007.1068     4007.1068      358    0.00%
+Elapsed time = 0.11 sec. (36.47 ticks, tree = 0.01 MB)
+
+Flow cuts applied:  19
+Mixed integer rounding cuts applied:  12
+Flow path cuts applied:  3
+Zero-half cuts applied:  8
+Multi commodity flow cuts applied:  8
+Lift and project cuts applied:  1
+
+Root node processing (before b&c):
+  Real time             =    0.11 sec. (36.47 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.11 sec. (36.47 ticks)
+CPLEX 12.6.3.0: optimal integer solution; objective 4007.106781
+358 MIP simplex iterations
+0 branch-and-bound nodes
+No basis.
+
+Number of reloading buildings at each station:
+x_num_reload_bldg [*] :=
+1  1
+2  1
+3  2
+4  3
+5  2
+6  3
+7  3
+;
+
+Line exists between stations i and j:
+x_line_exist :=
+1 2   0
+1 3   1
+1 4   1
+1 5   0
+1 6   0
+2 3   0
+2 5   1
+2 7   0
+3 4   0
+3 5   1
+3 6   1
+3 7   0
+4 5   0
+4 6   1
+5 6   0
+5 7   1
+6 7   1
+;
+
+Number of tracks from station i to station j:
+x_num_tracks [*,*]
+:   1   2   3   4   5   6   7    :=
+1   .   0   1   0   0   0   .
+2   0   .   0   .   0   .   0
+3   0   0   .   0   1   0   0
+4   1   .   0   .   0   1   .
+5   0   1   0   0   .   0   1
+6   0   .   1   1   0   .   1
+7   .   0   0   .   0   1   .
+;
+
+Number of units of shipment from station s to station d that go on arc (i,j):
+x_num_units [3,2,*,*]
+:   1   2   3   4   5   6   7    :=
+1   .   0   0   0   0   0   .
+2   0   .   0   .   0   .   0
+3   0   0   .   0   3   0   0
+4   0   .   0   .   0   0   .
+5   0   3   0   0   .   0   0
+6   0   .   0   0   0   .   0
+7   .   0   0   .   0   0   .
+
+ [4,7,*,*]
+:   1   2   3   4   5   6    7    :=
+1   .   0   1   0   0    0   .
+2   0   .   0   .   0   .    0
+3   0   0   .   0   2    0   0
+4   1   .   0   .   0   10   .
+5   0   0   0   0   .    0   2
+6   0   .   1   0   0   .    9
+7   .   0   0   .   0    0   .
+
+ [6,3,*,*]
+:   1   2   3   4   5   6   7    :=
+1   .   0   0   0   0   0   .
+2   0   .   0   .   0   .   0
+3   0   0   .   0   0   0   0
+4   0   .   0   .   0   0   .
+5   0   0   0   0   .   0   0
+6   0   .   8   0   0   .   0
+7   .   0   0   .   0   0   .
+
+ [7,1,*,*]
+:   1   2   3   4   5   6   7    :=
+1   .   0   0   0   0   0   .
+2   0   .   0   .   0   .   0
+3   0   0   .   0   0   0   0
+4   4   .   0   .   0   0   .
+5   0   0   0   0   .   0   0
+6   0   .   0   4   0   .   0
+7   .   0   0   .   0   4   .
+;
+
