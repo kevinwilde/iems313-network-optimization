@@ -21,7 +21,7 @@ option cplex_options 'mipdisplay=2 mipgap=1e-8';
 model network_design.mod;
 
 # Load the data for small problem when reloading buildings cost $1 million
-data network_design_small_1M.dat;
+data data/network_design_small_1M.dat;
 
 solve;
 
@@ -53,7 +53,7 @@ option cplex_options 'mipdisplay=2 mipgap=1e-8';
 model network_design.mod;
 
 # Load the data for scenario 1 when reloading buildings cost $1 million
-data scenario1_1M.dat;
+data data/scenario1_1M.dat;
 
 solve;
 
@@ -84,7 +84,7 @@ option cplex_options 'mipdisplay=2 mipgap=1e-8';
 model network_design.mod;
 
 # Load the data for scenario 2 when reloading buildings cost $1 million
-data scenario2_1M.dat;
+data data/scenario2_1M.dat;
 
 solve;
 
@@ -115,7 +115,7 @@ option cplex_options 'mipdisplay=2 mipgap=1e-8';
 model network_design.mod;
 
 # Load the data for scenario 3 when reloading buildings cost $1 million
-data scenario3_1M.dat;
+data data/scenario3_1M.dat;
 
 solve;
 

@@ -1,28 +1,10 @@
 ################################### BASE CASE ##################################
-
-network_design.mod, line 27 (offset 808):
-	DELIVS is not defined
-context:  sum{(s,d) in  >>> DELIVS, <<<  (i,k) in ARCS} x_num_units[s,d,i,k] 	# incoming units
-ampl: include network_design.run;
-################################### BASE CASE ##################################
-
-network_design.mod, line 78 (offset 2470):
-	x_num_units is not defined
-context:   >>> + <<<  sum{(k,d) in DELIVS} volume[k,d];						# plus units from a source
-ampl: include network_design.run;
-################################### BASE CASE ##################################
-
-network_design.mod, line 94 (offset 3004):
-	variable in = expression
-context:  + sum{(k,d) in DELIVS}  >>> volume[k,d]; <<< 						# plus units from a source
-ampl: include network_design.run;
-################################### BASE CASE ##################################
 CPLEX 12.6.3.0: mipdisplay=2
 mipgap=1e-8
 MIP Presolve modified 20 coefficients.
 Reduced MIP has 82 rows, 119 columns, and 367 nonzeros.
 Reduced MIP has 44 binaries, 75 generals, 0 SOSs, and 0 indicators.
-Found incumbent of value 159219.184735 after 0.02 sec. (0.42 ticks)
+Found incumbent of value 159219.184735 after 0.00 sec. (0.42 ticks)
 Probing time = 0.00 sec. (0.03 ticks)
 Reduced MIP has 82 rows, 119 columns, and 367 nonzeros.
 Reduced MIP has 44 binaries, 75 generals, 0 SOSs, and 0 indicators.
@@ -41,16 +23,16 @@ Root relaxation solution time = 0.00 sec. (0.20 ticks)
       0     0        0.0000     2    42330.2470        0.0000       18  100.00%
 *     0+    0                            0.0000        0.0000             0.00%
       0     0        cutoff              0.0000        0.0000       18    0.00%
-Elapsed time = 0.03 sec. (1.14 ticks, tree = 0.01 MB)
+Elapsed time = 0.02 sec. (1.14 ticks, tree = 0.01 MB)
 
 Root node processing (before b&c):
-  Real time             =    0.03 sec. (1.14 ticks)
+  Real time             =    0.02 sec. (1.14 ticks)
 Parallel b&c, 4 threads:
   Real time             =    0.00 sec. (0.00 ticks)
   Sync time (average)   =    0.00 sec.
   Wait time (average)   =    0.00 sec.
                           ------------
-Total (root+branch&cut) =    0.03 sec. (1.14 ticks)
+Total (root+branch&cut) =    0.02 sec. (1.14 ticks)
 CPLEX 12.6.3.0: optimal integer solution; objective 0
 18 MIP simplex iterations
 0 branch-and-bound nodes
@@ -128,7 +110,7 @@ mipgap=1e-8
 MIP Presolve modified 20 coefficients.
 Reduced MIP has 89 rows, 153 columns, and 503 nonzeros.
 Reduced MIP has 10 binaries, 143 generals, 0 SOSs, and 0 indicators.
-Found incumbent of value 458036.650327 after 0.02 sec. (0.52 ticks)
+Found incumbent of value 458036.650327 after 0.00 sec. (0.52 ticks)
 Probing time = 0.00 sec. (0.01 ticks)
 Reduced MIP has 89 rows, 153 columns, and 503 nonzeros.
 Reduced MIP has 10 binaries, 143 generals, 0 SOSs, and 0 indicators.
@@ -182,7 +164,7 @@ Root relaxation solution time = 0.00 sec. (0.39 ticks)
       0     0     4136.2301    43     6370.4375       Cuts: 8      300   35.07%
 *     0+    0                         4697.0563     4136.2301            11.94%
       0     0        cutoff           4697.0563     4697.0563      300    0.00%
-Elapsed time = 0.16 sec. (31.40 ticks, tree = 0.01 MB)
+Elapsed time = 0.14 sec. (31.40 ticks, tree = 0.01 MB)
 
 Flow cuts applied:  10
 Mixed integer rounding cuts applied:  13
@@ -192,13 +174,13 @@ Multi commodity flow cuts applied:  9
 Lift and project cuts applied:  1
 
 Root node processing (before b&c):
-  Real time             =    0.16 sec. (31.40 ticks)
+  Real time             =    0.14 sec. (31.40 ticks)
 Parallel b&c, 4 threads:
   Real time             =    0.00 sec. (0.00 ticks)
   Sync time (average)   =    0.00 sec.
   Wait time (average)   =    0.00 sec.
                           ------------
-Total (root+branch&cut) =    0.16 sec. (31.40 ticks)
+Total (root+branch&cut) =    0.14 sec. (31.40 ticks)
 CPLEX 12.6.3.0: optimal integer solution; objective 4697.056275
 300 MIP simplex iterations
 0 branch-and-bound nodes
@@ -436,7 +418,7 @@ Probing time = 0.00 sec. (0.02 ticks)
 MIP emphasis: balance optimality and feasibility.
 MIP search method: dynamic search.
 Parallel mode: deterministic, using up to 4 threads.
-Root relaxation solution time = 0.02 sec. (0.45 ticks)
+Root relaxation solution time = 0.00 sec. (0.45 ticks)
 
         Nodes                                         Cuts/
    Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
