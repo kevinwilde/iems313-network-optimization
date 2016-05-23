@@ -21,7 +21,7 @@ option cplex_options 'mipdisplay=2 mipgap=1e-8';
 # Load the model
 model network_design.mod;
 
-# Load the data for small problem when reloading buildings cost $1 million
+# Load the data for problem when reloading buildings cost $1 million
 data data/scenario0_1M.dat;
 
 solve;
@@ -53,7 +53,7 @@ option cplex_options 'mipdisplay=2 mipgap=1e-8';
 # Load the model
 model network_design.mod;
 
-# Load the data for small problem when reloading buildings cost $1 million
+# Load the data for problem when reloading buildings cost $1 million
 data data/scenario0_500K.dat;
 
 solve;
@@ -118,7 +118,7 @@ option cplex_options 'mipdisplay=2 mipgap=1e-8';
 # Load the model
 model network_design.mod;
 
-# Load the data for scenario 1 when reloading buildings cost $1 million
+# Load the data for scenario 1 when reloading buildings cost $500,0000
 data data/scenario1_500K.dat;
 
 solve;
@@ -182,7 +182,7 @@ option cplex_options 'mipdisplay=2 mipgap=1e-8';
 # Load the model
 model network_design.mod;
 
-# Load the data for scenario 2 when reloading buildings cost $1 million
+# Load the data for scenario 2 when reloading buildings cost $500,000
 data data/scenario2_500K.dat;
 
 solve;
@@ -246,7 +246,7 @@ option cplex_options 'mipdisplay=2 mipgap=1e-8';
 # Load the model
 model network_design.mod;
 
-# Load the data for scenario 3 when reloading buildings cost $1 million
+# Load the data for scenario 3 when reloading buildings cost $500,000
 data data/scenario3_500K.dat;
 
 solve;
@@ -310,7 +310,7 @@ option cplex_options 'mipdisplay=2 mipgap=1e-8';
 # Load the model
 model network_design.mod;
 
-# Load the data for scenario 3 when reloading buildings cost $1 million
+# Load the data for scenario 3 when reloading buildings cost $500,000
 data data/scenario4_500K.dat;
 
 solve;
@@ -374,7 +374,7 @@ option cplex_options 'mipdisplay=2 mipgap=1e-8';
 # Load the model
 model network_design.mod;
 
-# Load the data for scenario 3 when reloading buildings cost $1 million
+# Load the data for scenario 3 when reloading buildings cost $500,000
 data data/scenario5_500K.dat;
 
 solve;

@@ -24,7 +24,7 @@ for {t in 0..6} {
 	printf '##################### Reloading Stations cost $1 million #######################\n';
 
 	# Load the data for problem when reloading buildings cost $1 million
-	file_name := sprintf('data/scenario%s_1M.dat', t);
+	param file_name = sprintf('data/scenario%s_1M.dat', t);
 	display file_name;
 	data file_name;
 	
@@ -44,7 +44,7 @@ for {t in 0..6} {
 	printf '###################### Reloading Stations cost $500,000 ########################\n';
 	
 	# Load the data for problem when reloading buildings cost $500,000
-	file_name := sprintf('data/scenario%s_500K.dat', t);
+	param file_name = sprintf('data/scenario%s_500K.dat', t);
 	data file_name;
 	
 	solve;
