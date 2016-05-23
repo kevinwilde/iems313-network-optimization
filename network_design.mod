@@ -49,7 +49,7 @@ param track_capacity;
 param tracks_exist{LINES} integer, >= 0, default 0;
 
 # 1 if line exists, 0 otherwise
-param line_exist{LINES} binary, default 0;
+param line_exist{(i,j) in LINES} binary := if tracks_exist[i,j] > 0 then 1 else 0;
 
 ###################################################
 #    Deliveries

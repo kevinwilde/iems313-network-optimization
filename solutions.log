@@ -1,4 +1,5 @@
 ################################### BASE CASE ##################################
+##################### Reloading Stations cost $1 million #######################
 CPLEX 12.6.3.0: mipdisplay=2
 mipgap=1e-8
 MIP Presolve modified 20 coefficients.
@@ -21,6 +22,113 @@ Root relaxation solution time = 0.00 sec. (0.20 ticks)
 *     0+    0                       159219.1847    -3737.7112           102.35%
 *     0+    0                        42330.2470    -3737.7112           108.83%
       0     0        0.0000     2    42330.2470        0.0000       18  100.00%
+*     0+    0                            0.0000        0.0000             0.00%
+      0     0        cutoff              0.0000        0.0000       18    0.00%
+Elapsed time = 0.02 sec. (1.14 ticks, tree = 0.01 MB)
+
+Root node processing (before b&c):
+  Real time             =    0.02 sec. (1.14 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.02 sec. (1.14 ticks)
+CPLEX 12.6.3.0: optimal integer solution; objective 0
+18 MIP simplex iterations
+0 branch-and-bound nodes
+No basis.
+
+Number of reloading buildings at each station:
+x_num_reload_bldg [*] :=
+1  1
+2  1
+3  2
+4  3
+5  2
+6  2
+7  3
+;
+
+Line exists between stations i and j:
+x_line_exist :=
+1 2   0
+1 3   1
+1 4   1
+1 5   0
+1 6   0
+2 3   0
+2 5   1
+2 7   0
+3 4   0
+3 5   1
+3 6   0
+3 7   0
+4 5   0
+4 6   1
+5 6   0
+5 7   1
+6 7   1
+;
+
+Number of tracks from station i to station j:
+x_num_tracks [*,*]
+:   1   2   3   4   5   6   7    :=
+1   .   0   1   0   0   0   .
+2   0   .   0   .   0   .   0
+3   0   0   .   0   1   0   0
+4   1   .   0   .   0   1   .
+5   0   1   0   0   .   0   1
+6   0   .   0   0   0   .   1
+7   .   0   0   .   0   0   .
+;
+
+Number of units of shipment from station s to station d that go on arc (i,j):
+x_num_units [3,2,*,*]
+:   1   2   3   4   5   6   7    :=
+1   .   0   0   0   0   0   .
+2   0   .   0   .   0   .   0
+3   0   0   .   0   3   0   0
+4   0   .   0   .   0   0   .
+5   0   3   0   0   .   0   0
+6   0   .   0   0   0   .   0
+7   .   0   0   .   0   0   .
+
+ [4,7,*,*]
+:   1   2   3   4   5   6    7     :=
+1   .   0   1   0   0    0   .
+2   0   .   0   .   0   .     0
+3   0   0   .   0   1    0    0
+4   1   .   0   .   0   10   .
+5   0   0   0   0   .    0    1
+6   0   .   0   0   0   .    10
+7   .   0   0   .   0    0   .
+;
+
+################################### BASE CASE ##################################
+###################### Reloading Stations cost $500,000 ########################
+CPLEX 12.6.3.0: mipdisplay=2
+mipgap=1e-8
+MIP Presolve modified 20 coefficients.
+Reduced MIP has 82 rows, 119 columns, and 367 nonzeros.
+Reduced MIP has 44 binaries, 75 generals, 0 SOSs, and 0 indicators.
+Found incumbent of value 96219.184735 after 0.00 sec. (0.42 ticks)
+Probing time = 0.00 sec. (0.03 ticks)
+Reduced MIP has 82 rows, 119 columns, and 367 nonzeros.
+Reduced MIP has 44 binaries, 75 generals, 0 SOSs, and 0 indicators.
+Probing time = 0.00 sec. (0.03 ticks)
+Clique table members: 27.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 4 threads.
+Root relaxation solution time = 0.00 sec. (0.20 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                        96219.1847    -3737.7112           103.88%
+*     0+    0                        24830.2470    -3737.7112           115.05%
+      0     0        0.0000     2    24830.2470        0.0000       18  100.00%
 *     0+    0                            0.0000        0.0000             0.00%
       0     0        cutoff              0.0000        0.0000       18    0.00%
 Elapsed time = 0.00 sec. (1.14 ticks, tree = 0.01 MB)
@@ -105,12 +213,13 @@ x_num_units [3,2,*,*]
 ;
 
 ################################### SCENARIO 1 #################################
+##################### Reloading Stations cost $1 million #######################
 CPLEX 12.6.3.0: mipdisplay=2
 mipgap=1e-8
 MIP Presolve modified 20 coefficients.
 Reduced MIP has 89 rows, 153 columns, and 503 nonzeros.
 Reduced MIP has 10 binaries, 143 generals, 0 SOSs, and 0 indicators.
-Found incumbent of value 458036.650327 after 0.02 sec. (0.52 ticks)
+Found incumbent of value 458036.650327 after 0.00 sec. (0.52 ticks)
 Probing time = 0.00 sec. (0.01 ticks)
 Reduced MIP has 89 rows, 153 columns, and 503 nonzeros.
 Reduced MIP has 10 binaries, 143 generals, 0 SOSs, and 0 indicators.
@@ -262,7 +371,151 @@ x_num_units [3,2,*,*]
 7   .   0   0   .   0   0   .
 ;
 
+################################### SCENARIO 1 #################################
+###################### Reloading Stations cost $500,000 ########################
+CPLEX 12.6.3.0: mipdisplay=2
+mipgap=1e-8
+MIP Presolve modified 20 coefficients.
+Reduced MIP has 89 rows, 153 columns, and 503 nonzeros.
+Reduced MIP has 10 binaries, 143 generals, 0 SOSs, and 0 indicators.
+Found incumbent of value 258036.650327 after 0.01 sec. (0.52 ticks)
+Probing time = 0.00 sec. (0.01 ticks)
+Reduced MIP has 89 rows, 153 columns, and 503 nonzeros.
+Reduced MIP has 10 binaries, 143 generals, 0 SOSs, and 0 indicators.
+Probing time = 0.00 sec. (0.01 ticks)
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 4 threads.
+Root relaxation solution time = 0.00 sec. (0.35 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                       258036.6503    -3737.7112           101.45%
+*     0+    0                       178050.4057    -3737.7112           102.10%
+      0     0     1520.2082    10   178050.4057     1520.2082       40   99.15%
+*     0+    0                         4904.1631     1520.2082            69.00%
+      0     0     1771.8791    25     4904.1631      Cuts: 14       58   63.87%
+*     0+    0                         4548.7476     1771.8791            61.05%
+      0     0     2006.1609    11     4548.7476      Cuts: 14       67   55.90%
+      0     0     2028.5101    40     4548.7476      Cuts: 13       85   55.41%
+*     0+    0                         3707.1068     2028.5101            45.28%
+      0     0     2156.2212    32     3707.1068      Cuts: 10      103   41.84%
+*     0+    0                         3559.0170     2156.2212            39.42%
+      0     0     2267.4281    26     3559.0170       Cuts: 4      119   36.29%
+      0     0     2333.3245    26     3559.0170       Cuts: 3      135   34.44%
+      0     0     2346.2750    14     3559.0170       Cuts: 5      144   34.08%
+      0     0     2356.4921    14     3559.0170   ZeroHalf: 1      151   33.79%
+      0     0     2378.2633    25     3559.0170    MIRcuts: 1      157   33.18%
+      0     0     2392.3885    15     3559.0170      Cuts: 10      162   32.78%
+      0     0     2428.5869    25     3559.0170       Cuts: 6      172   31.76%
+      0     0     2444.3017    29     3559.0170       Cuts: 5      180   31.32%
+      0     0     2463.6766    31     3559.0170       Cuts: 5      187   30.78%
+      0     0     2478.3343    31     3559.0170      Cuts: 12      194   30.36%
+      0     0     2491.7430    37     3559.0170       Cuts: 7      210   29.99%
+      0     0     2512.4372    36     3559.0170       Cuts: 8      225   29.41%
+      0     0     2513.9779    38     3559.0170       Cuts: 7      229   29.36%
+*     0+    0                         3000.0000     2513.9779            16.20%
+      0     0        cutoff           3000.0000     3000.0000      229    0.00%
+Elapsed time = 0.08 sec. (17.99 ticks, tree = 0.01 MB)
+
+Flow cuts applied:  5
+Mixed integer rounding cuts applied:  10
+Zero-half cuts applied:  4
+Multi commodity flow cuts applied:  5
+Lift and project cuts applied:  4
+
+Root node processing (before b&c):
+  Real time             =    0.08 sec. (17.99 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.08 sec. (17.99 ticks)
+CPLEX 12.6.3.0: optimal integer solution; objective 3000
+229 MIP simplex iterations
+0 branch-and-bound nodes
+No basis.
+
+Number of reloading buildings at each station:
+x_num_reload_bldg [*] :=
+1  1
+2  2
+3  2
+4  3
+5  3
+6  3
+7  4
+;
+
+Line exists between stations i and j:
+x_line_exist :=
+1 2   0
+1 3   1
+1 4   1
+1 5   0
+1 6   0
+2 3   0
+2 5   1
+2 7   0
+3 4   0
+3 5   1
+3 6   0
+3 7   0
+4 5   0
+4 6   1
+5 6   0
+5 7   1
+6 7   1
+;
+
+Number of tracks from station i to station j:
+x_num_tracks [*,*]
+:   1   2   3   4   5   6   7    :=
+1   .   0   1   0   0   0   .
+2   0   .   0   .   0   .   0
+3   0   0   .   0   1   0   0
+4   1   .   0   .   0   1   .
+5   0   1   0   0   .   0   1
+6   0   .   0   0   0   .   2
+7   .   0   0   .   1   0   .
+;
+
+Number of units of shipment from station s to station d that go on arc (i,j):
+x_num_units [3,2,*,*]
+:   1   2   3   4   5   6   7    :=
+1   .   0   0   0   0   0   .
+2   0   .   0   .   0   .   0
+3   0   0   .   0   3   0   0
+4   0   .   0   .   0   0   .
+5   0   3   0   0   .   0   0
+6   0   .   0   0   0   .   0
+7   .   0   0   .   0   0   .
+
+ [4,7,*,*]
+:   1   2   3   4   5   6   7    :=
+1   .   0   3   0   0   0   .
+2   0   .   0   .   0   .   0
+3   0   0   .   0   3   0   0
+4   3   .   0   .   0   8   .
+5   0   0   0   0   .   0   3
+6   0   .   0   0   0   .   8
+7   .   0   0   .   0   0   .
+
+ [6,2,*,*]
+:   1   2   3   4   5   6   7    :=
+1   .   0   0   0   0   0   .
+2   0   .   0   .   0   .   0
+3   0   0   .   0   0   0   0
+4   0   .   0   .   0   0   .
+5   0   7   0   0   .   0   0
+6   0   .   0   0   0   .   7
+7   .   0   0   .   7   0   .
+;
+
 ################################### SCENARIO 2 #################################
+##################### Reloading Stations cost $1 million #######################
 CPLEX 12.6.3.0: mipdisplay=2
 mipgap=1e-8
 MIP Presolve modified 20 coefficients.
@@ -404,7 +657,152 @@ x_num_units [3,2,*,*]
 7   .   0   0   .   0    0   .
 ;
 
+################################### SCENARIO 2 #################################
+###################### Reloading Stations cost $500,000 ########################
+CPLEX 12.6.3.0: mipdisplay=2
+mipgap=1e-8
+MIP Presolve modified 20 coefficients.
+Reduced MIP has 89 rows, 153 columns, and 503 nonzeros.
+Reduced MIP has 10 binaries, 143 generals, 0 SOSs, and 0 indicators.
+Found incumbent of value 257536.650327 after 0.00 sec. (0.52 ticks)
+Probing time = 0.00 sec. (0.01 ticks)
+Reduced MIP has 89 rows, 153 columns, and 503 nonzeros.
+Reduced MIP has 10 binaries, 143 generals, 0 SOSs, and 0 indicators.
+Probing time = 0.00 sec. (0.01 ticks)
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 4 threads.
+Root relaxation solution time = 0.02 sec. (0.33 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                       257536.6503    -3237.7112           101.26%
+*     0+    0                       173897.6761    -3237.7112           101.86%
+      0     0     2140.8422     8   173897.6761     2140.8422       38   98.77%
+*     0+    0                         6948.7476     2140.8422            69.19%
+      0     0     2557.3038    28     6948.7476      Cuts: 14       51   63.20%
+      0     0     3212.0054    34     6948.7476      Cuts: 23       81   53.78%
+      0     0     3233.2021    35     6948.7476      Cuts: 10       90   53.47%
+      0     0     3262.2898    31     6948.7476       Cuts: 3       99   53.05%
+*     0+    0                         6797.3666     3262.2898            52.01%
+      0     0     3283.4098    32     6797.3666       Cuts: 3      109   51.70%
+      0     0     3399.7380    30     6797.3666       Cuts: 3      127   49.98%
+*     0+    0                         4397.3666     3399.7380            22.69%
+      0     0     3408.3917    32     4397.3666   ZeroHalf: 3      133   22.49%
+      0     0     3502.7055    35     4397.3666       Cuts: 4      144   20.35%
+      0     0     3520.2134    31     4397.3666       Cuts: 6      154   19.95%
+      0     0     3599.4086    36     4397.3666       Cuts: 8      162   18.15%
+      0     0     3613.0129    37     4397.3666       Cuts: 5      169   17.84%
+      0     0     3687.5883    31     4397.3666       Cuts: 7      179   16.14%
+      0     0     3765.3805    33     4397.3666       Cuts: 9      191   14.37%
+      0     0     3781.5925    36     4397.3666       Cuts: 9      199   14.00%
+      0     0     3836.2788    31     4397.3666       Cuts: 7      216   12.76%
+      0     0     3840.5775    39     4397.3666       Cuts: 6      222   12.66%
+      0     0     3845.7993    40     4397.3666      Cuts: 14      228   12.54%
+      0     0     3852.2745    34     4397.3666       Cuts: 4      234   12.40%
+      0     0     3852.6575    39     4397.3666   ZeroHalf: 2      236   12.39%
+      0     0     3852.7152    34     4397.3666   ZeroHalf: 3      237   12.39%
+*     0+    0                         4118.0340     3852.7152             6.44%
+      0     0        cutoff           4118.0340     4118.0340      237    0.00%
+Elapsed time = 0.08 sec. (18.64 ticks, tree = 0.01 MB)
+
+Flow cuts applied:  1
+Mixed integer rounding cuts applied:  5
+Zero-half cuts applied:  12
+Multi commodity flow cuts applied:  4
+
+Root node processing (before b&c):
+  Real time             =    0.08 sec. (18.64 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.08 sec. (18.64 ticks)
+CPLEX 12.6.3.0: optimal integer solution; objective 4118.033989
+237 MIP simplex iterations
+0 branch-and-bound nodes
+No basis.
+
+Number of reloading buildings at each station:
+x_num_reload_bldg [*] :=
+1  2
+2  3
+3  3
+4  4
+5  3
+6  2
+7  3
+;
+
+Line exists between stations i and j:
+x_line_exist :=
+1 2   0
+1 3   1
+1 4   1
+1 5   0
+1 6   0
+2 3   0
+2 5   1
+2 7   0
+3 4   0
+3 5   1
+3 6   0
+3 7   0
+4 5   0
+4 6   1
+5 6   0
+5 7   1
+6 7   1
+;
+
+Number of tracks from station i to station j:
+x_num_tracks [*,*]
+:   1   2   3   4   5   6   7    :=
+1   .   0   1   0   0   0   .
+2   0   .   0   .   0   .   0
+3   0   0   .   0   2   0   0
+4   1   .   0   .   0   1   .
+5   0   2   0   0   .   0   1
+6   0   .   0   0   0   .   1
+7   .   0   0   .   0   0   .
+;
+
+Number of units of shipment from station s to station d that go on arc (i,j):
+x_num_units [3,2,*,*]
+:   1   2   3   4   5   6   7    :=
+1   .   0   0   0   0   0   .
+2   0   .   0   .   0   .   0
+3   0   0   .   0   3   0   0
+4   0   .   0   .   0   0   .
+5   0   3   0   0   .   0   0
+6   0   .   0   0   0   .   0
+7   .   0   0   .   0   0   .
+
+ [4,2,*,*]
+:   1   2   3   4   5   6   7    :=
+1   .   0   9   0   0   0   .
+2   0   .   0   .   0   .   0
+3   0   0   .   0   9   0   0
+4   9   .   0   .   0   0   .
+5   0   9   0   0   .   0   0
+6   0   .   0   0   0   .   0
+7   .   0   0   .   0   0   .
+
+ [4,7,*,*]
+:   1   2   3   4   5   6    7     :=
+1   .   0   1   0   0    0   .
+2   0   .   0   .   0   .     0
+3   0   0   .   0   1    0    0
+4   1   .   0   .   0   10   .
+5   0   0   0   0   .    0    1
+6   0   .   0   0   0   .    10
+7   .   0   0   .   0    0   .
+;
+
 ################################### SCENARIO 3 #################################
+##################### Reloading Stations cost $1 million #######################
 CPLEX 12.6.3.0: mipdisplay=2
 mipgap=1e-8
 MIP Presolve modified 20 coefficients.
@@ -443,7 +841,7 @@ Root relaxation solution time = 0.00 sec. (0.45 ticks)
       0     0     5578.2965    57     9819.6772       Cuts: 3      299   43.19%
 *     0+    0                         6566.1238     5578.2965            15.04%
       0     0        cutoff           6566.1238     6566.1238      299    0.00%
-Elapsed time = 0.09 sec. (24.58 ticks, tree = 0.01 MB)
+Elapsed time = 0.11 sec. (24.58 ticks, tree = 0.01 MB)
 
 Flow cuts applied:  10
 Mixed integer rounding cuts applied:  14
@@ -453,13 +851,13 @@ Multi commodity flow cuts applied:  8
 Lift and project cuts applied:  6
 
 Root node processing (before b&c):
-  Real time             =    0.09 sec. (24.58 ticks)
+  Real time             =    0.11 sec. (24.58 ticks)
 Parallel b&c, 4 threads:
   Real time             =    0.00 sec. (0.00 ticks)
   Sync time (average)   =    0.00 sec.
   Wait time (average)   =    0.00 sec.
                           ------------
-Total (root+branch&cut) =    0.09 sec. (24.58 ticks)
+Total (root+branch&cut) =    0.11 sec. (24.58 ticks)
 CPLEX 12.6.3.0: optimal integer solution; objective 6566.123776
 299 MIP simplex iterations
 0 branch-and-bound nodes
@@ -551,7 +949,166 @@ x_num_units [3,2,*,*]
 7   .   0   0   .   4   0   .
 ;
 
+################################### SCENARIO 3 #################################
+###################### Reloading Stations cost $500,000 ########################
+CPLEX 12.6.3.0: mipdisplay=2
+mipgap=1e-8
+MIP Presolve modified 20 coefficients.
+Reduced MIP has 96 rows, 187 columns, and 639 nonzeros.
+Reduced MIP has 10 binaries, 177 generals, 0 SOSs, and 0 indicators.
+Found incumbent of value 326536.650327 after 0.00 sec. (0.65 ticks)
+Probing time = 0.00 sec. (0.02 ticks)
+Reduced MIP has 96 rows, 187 columns, and 639 nonzeros.
+Reduced MIP has 10 binaries, 177 generals, 0 SOSs, and 0 indicators.
+Probing time = 0.00 sec. (0.02 ticks)
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 4 threads.
+Root relaxation solution time = 0.01 sec. (0.41 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                       326536.6503    -3737.7112           101.14%
+*     0+    0                       253458.3025    -3737.7112           101.47%
+      0     0     2405.0000    14   253458.3025     2405.0000       42   99.05%
+*     0+    0                         8319.6772     2405.0000            71.09%
+      0     0     2952.2005    42     8319.6772      Cuts: 28       74   64.52%
+      0     0     3332.2954    63     8319.6772      Cuts: 36      122   59.95%
+      0     0     3504.7904    44     8319.6772      Cuts: 29      148   57.87%
+      0     0     3716.1995    51     8319.6772      Cuts: 13      180   55.33%
+*     0+    0                         8112.5704     3716.1995            54.19%
+      0     0     3920.1839    59     8112.5704      Cuts: 13      214   51.68%
+      0     0     4065.9749    31     8112.5704       Cuts: 8      232   49.88%
+      0     0     4226.7521    71     8112.5704      Cuts: 26      268   47.90%
+      0     0     4338.8493    76     8112.5704      Cuts: 17      293   46.52%
+      0     0     4362.3358    82     8112.5704      Cuts: 24      322   46.23%
+*     0+    0                         7419.6772     4362.3358            41.21%
+      0     0     4368.3369    68     7419.6772      Cuts: 14      332   41.12%
+      0     0     4369.6024    78     7419.6772       Cuts: 3      338   41.11%
+      0     0     4371.4289    80     7419.6772       Cuts: 5      346   41.08%
+      0     0     4373.5836    43     7419.6772       Cuts: 3      353   41.05%
+      0     0     4375.7353    73     7419.6772       Cuts: 4      357   41.03%
+      0     0     4378.4801    71     7419.6772       Cuts: 6      365   40.99%
+      0     0     4384.3814    61     7419.6772       Cuts: 4      380   40.91%
+      0     0     4385.6095    74     7419.6772       Cuts: 7      388   40.89%
+      0     0     4389.2265    68     7419.6772        MCF: 2      399   40.84%
+      0     0     4389.2482    69     7419.6772       Cuts: 2      402   40.84%
+      0     0     4389.2738    68     7419.6772       Cuts: 3      405   40.84%
+*     0+    0                         5007.1068     4389.2738            12.34%
+      0     2     4390.9420    66     5007.1068     5006.9128      405    0.00%
+Elapsed time = 0.13 sec. (32.42 ticks, tree = 0.01 MB)
+
+Implied bound cuts applied:  1
+Flow cuts applied:  12
+Mixed integer rounding cuts applied:  19
+Flow path cuts applied:  1
+Zero-half cuts applied:  1
+Multi commodity flow cuts applied:  12
+Lift and project cuts applied:  8
+Gomory fractional cuts applied:  2
+
+Root node processing (before b&c):
+  Real time             =    0.13 sec. (32.31 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.03 sec. (12.04 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.16 sec. (44.35 ticks)
+CPLEX 12.6.3.0: optimal integer solution; objective 5007.106781
+2212 MIP simplex iterations
+134 branch-and-bound nodes
+No basis.
+
+Number of reloading buildings at each station:
+x_num_reload_bldg [*] :=
+1  2
+2  1
+3  3
+4  3
+5  2
+6  4
+7  3
+;
+
+Line exists between stations i and j:
+x_line_exist :=
+1 2   0
+1 3   1
+1 4   1
+1 5   0
+1 6   0
+2 3   0
+2 5   1
+2 7   0
+3 4   0
+3 5   1
+3 6   1
+3 7   0
+4 5   0
+4 6   1
+5 6   0
+5 7   1
+6 7   1
+;
+
+Number of tracks from station i to station j:
+x_num_tracks [*,*]
+:   1   2   3   4   5   6   7    :=
+1   .   0   1   0   0   0   .
+2   0   .   0   .   0   .   0
+3   0   0   .   0   1   0   0
+4   1   .   0   .   0   1   .
+5   0   1   0   0   .   0   1
+6   0   .   1   1   0   .   1
+7   .   0   0   .   0   1   .
+;
+
+Number of units of shipment from station s to station d that go on arc (i,j):
+x_num_units [3,2,*,*]
+:   1   2   3   4   5   6   7    :=
+1   .   0   0   0   0   0   .
+2   0   .   0   .   0   .   0
+3   0   0   .   0   3   0   0
+4   0   .   0   .   0   0   .
+5   0   3   0   0   .   0   0
+6   0   .   0   0   0   .   0
+7   .   0   0   .   0   0   .
+
+ [4,7,*,*]
+:   1   2   3   4   5   6   7    :=
+1   .   0   3   0   0   0   .
+2   0   .   0   .   0   .   0
+3   0   0   .   0   3   0   0
+4   3   .   0   .   0   8   .
+5   0   0   0   0   .   0   3
+6   0   .   0   0   0   .   8
+7   .   0   0   .   0   0   .
+
+ [6,3,*,*]
+:   1   2   3   4   5   6   7    :=
+1   .   0   0   0   0   0   .
+2   0   .   0   .   0   .   0
+3   0   0   .   0   0   0   0
+4   0   .   0   .   0   0   .
+5   0   0   0   0   .   0   0
+6   0   .   8   0   0   .   0
+7   .   0   0   .   0   0   .
+
+ [7,1,*,*]
+:   1   2   3   4   5   6   7    :=
+1   .   0   0   0   0   0   .
+2   0   .   0   .   0   .   0
+3   0   0   .   0   0   0   0
+4   4   .   0   .   0   0   .
+5   0   0   0   0   .   0   0
+6   0   .   0   4   0   .   0
+7   .   0   0   .   0   4   .
+;
+
 ################################### SCENARIO 4 #################################
+##################### Reloading Stations cost $1 million #######################
 CPLEX 12.6.3.0: mipdisplay=2
 mipgap=1e-8
 MIP Presolve modified 52 coefficients.
@@ -592,7 +1149,7 @@ Root relaxation solution time = 0.00 sec. (2.42 ticks)
 *     0+    0                        12773.7555     2996.0008            76.55%
 *     0+    0                         9311.7082     2996.0008            67.83%
       0     2     2996.0008   120     9311.7082     2996.0008      339   67.83%
-Elapsed time = 0.19 sec. (70.60 ticks, tree = 0.01 MB)
+Elapsed time = 0.20 sec. (70.60 ticks, tree = 0.01 MB)
 *     4+    4                         8645.5844     3119.2815            63.92%
 *     4+    4                         8311.7082     3119.2815            62.47%
 *     4+    4                         8045.5844     3119.2815            61.23%
@@ -607,7 +1164,7 @@ Elapsed time = 0.19 sec. (70.60 ticks, tree = 0.01 MB)
    1420   696     6343.6993    53     7116.8842     3814.1850    20018   46.41%
    1423   697        cutoff           7116.8842     3814.1850    20031   46.41%
    2417  1293     5222.6192   111     7116.8842     4083.0478    32682   42.63%
-Elapsed time = 2.19 sec. (1033.80 ticks, tree = 1.73 MB)
+Elapsed time = 2.22 sec. (1033.80 ticks, tree = 1.73 MB)
 *  2691   687      integral     0     7100.0000     4277.9335    38720   39.75%
 *  3020+  632                         6953.5534     4627.8327            33.45%
    5617  1697     6653.5586   106     6953.5534     5430.2192   106265   21.91%
@@ -619,7 +1176,7 @@ Elapsed time = 2.19 sec. (1033.80 ticks, tree = 1.73 MB)
    5641  1701        cutoff           6953.5534     5430.2192   106923   21.91%
    5645  1704     6948.6695    77     6953.5534     5430.2192   106974   21.91%
    5649  1706        cutoff           6953.5534     5430.2192   106991   21.91%
-Elapsed time = 3.77 sec. (1991.86 ticks, tree = 3.72 MB)
+Elapsed time = 3.80 sec. (1991.86 ticks, tree = 3.72 MB)
 *  6438+ 1992                         6744.1228     5599.6002            16.97%
 *  7300+ 1791                         6516.8842     5769.4534            11.47%
 
@@ -632,13 +1189,13 @@ Multi commodity flow cuts applied:  7
 Lift and project cuts applied:  10
 
 Root node processing (before b&c):
-  Real time             =    0.19 sec. (70.35 ticks)
+  Real time             =    0.20 sec. (70.35 ticks)
 Parallel b&c, 4 threads:
-  Real time             =    5.25 sec. (2825.15 ticks)
-  Sync time (average)   =    0.56 sec.
-  Wait time (average)   =    0.57 sec.
+  Real time             =    5.27 sec. (2825.15 ticks)
+  Sync time (average)   =    0.51 sec.
+  Wait time (average)   =    0.55 sec.
                           ------------
-Total (root+branch&cut) =    5.44 sec. (2895.50 ticks)
+Total (root+branch&cut) =    5.47 sec. (2895.50 ticks)
 CPLEX 12.6.3.0: optimal integer solution; objective 6516.884156
 178953 MIP simplex iterations
 9752 branch-and-bound nodes
@@ -803,7 +1360,241 @@ x_num_units [1,13,*,*]
 14   .   .   .   .   .   .   .   0   .   0   0   0   7   .
 ;
 
+################################### SCENARIO 4 #################################
+###################### Reloading Stations cost $500,000 ########################
+CPLEX 12.6.3.0: mipdisplay=2
+mipgap=1e-8
+MIP Presolve modified 52 coefficients.
+Reduced MIP has 250 rows, 628 columns, and 2250 nonzeros.
+Reduced MIP has 26 binaries, 602 generals, 0 SOSs, and 0 indicators.
+Found incumbent of value 2809418.830162 after 0.00 sec. (2.50 ticks)
+Probing time = 0.02 sec. (0.06 ticks)
+Reduced MIP has 250 rows, 628 columns, and 2250 nonzeros.
+Reduced MIP has 26 binaries, 602 generals, 0 SOSs, and 0 indicators.
+Probing time = 0.00 sec. (0.05 ticks)
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 4 threads.
+Root relaxation solution time = 0.00 sec. (3.90 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                      2809418.8302   -19390.8543           100.69%
+*     0+    0                      2502260.3242   -19390.8543           100.77%
+*     0+    0                      2411260.3242   -19390.8543           100.80%
+*     0+    0                      2320260.3242   -19390.8543           100.84%
+*     0+    0                      2229260.3242   -19390.8543           100.87%
+*     0+    0                      2138260.3242   -19390.8543           100.91%
+      0     0     1841.7755    65  2138260.3242     1841.7755      267   99.91%
+      0     0     1883.9802    48  2138260.3242      Cuts: 17      288   99.91%
+*     0+    0                         7447.0939     1883.9802            74.70%
+      0     0     2069.9128    92     7447.0939      Cuts: 15      324   72.21%
+      0     0     2086.9892    92     7447.0939       Cuts: 4      334   71.98%
+      0     0     2092.8704    88     7447.0939       Cuts: 8      341   71.90%
+*     0+    0                         5973.2306     2092.8704            64.96%
+*     0+    0                         5307.1068     2092.8704            60.56%
+*     0+    0                         4807.1068     2092.8704            56.46%
+*     0+    0                         4790.5694     2092.8704            56.31%
+      0     2     2092.8704    88     4790.5694     2116.2152      341   55.83%
+Elapsed time = 0.25 sec. (50.42 ticks, tree = 0.01 MB)
+*  1079+  760                         4644.1228     2137.1643            53.98%
+*  1307+  850                         4290.5694     2145.5265            49.99%
+*  1307+  849                         4144.1228     2145.5265            48.23%
+   2095  1059     2595.8290    96     4144.1228     2241.4372    25629   45.91%
+   2099  1061     3020.7909    76     4144.1228     2241.4372    25670   45.91%
+   2103  1065     3190.8093    87     4144.1228     2241.4372    25724   45.91%
+   2107  1067     3195.8177    97     4144.1228     2241.4372    25736   45.91%
+   2111  1071     3292.2801    39     4144.1228     2241.4372    25760   45.91%
+   2112  1072     3816.5204    48     4144.1228     2241.4372    25766   45.91%
+   2115  1073     3320.0182    43     4144.1228     2241.4372    25773   45.91%
+   2116  1074     4016.5204    27     4144.1228     2241.4372    25800   45.91%
+   2118  1074     3100.6033    61     4144.1228     2241.4372    25832   45.91%
+*  2356+  804                         4000.0000     2536.8284            36.58%
+*  2356+  536                         3853.5534     2811.8034            27.03%
+   2356   537     2677.9446   155     3853.5534     3241.0590    29907   15.89%
+Elapsed time = 2.61 sec. (1074.25 ticks, tree = 0.67 MB)
+
+Implied bound cuts applied:  12
+Flow cuts applied:  22
+Mixed integer rounding cuts applied:  65
+Multi commodity flow cuts applied:  2
+Lift and project cuts applied:  21
+
+Root node processing (before b&c):
+  Real time             =    0.26 sec. (50.21 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    3.78 sec. (1962.14 ticks)
+  Sync time (average)   =    0.30 sec.
+  Wait time (average)   =    0.37 sec.
+                          ------------
+Total (root+branch&cut) =    4.05 sec. (2012.35 ticks)
+CPLEX 12.6.3.0: optimal integer solution; objective 3853.553391
+94924 MIP simplex iterations
+5374 branch-and-bound nodes
+No basis.
+
+Number of reloading buildings at each station:
+x_num_reload_bldg [*] :=
+ 1  5
+ 2  6
+ 3  5
+ 4  5
+ 5  6
+ 6  4
+ 7  2
+ 8  4
+ 9  5
+10  7
+11  3
+12  3
+13  7
+14  5
+;
+
+Line exists between stations i and j:
+x_line_exist [*,*]
+:    2   3   4   5   6   7   8   9  10  11  12  13  14    :=
+1    1   .   .   1   .   0   .   0   .   .   .   .   .
+2    .   1   .   1   0   1   .   0   .   .   .   .   .
+3    .   .   1   .   0   0   0   .   0   .   .   .   .
+4    .   .   .   .   0   .   0   .   1   .   .   .   .
+5    .   .   .   .   .   0   .   1   .   0   .   .   .
+6    .   .   .   .   .   1   1   .   0   0   .   .   .
+7    .   .   .   .   .   .   0   0   0   0   0   .   .
+8    .   .   .   .   .   .   .   .   1   0   .   0   0
+9    .   .   .   .   .   .   .   .   .   0   1   .   .
+10   .   .   .   .   .   .   .   .   .   0   .   1   0
+11   .   .   .   .   .   .   .   .   .   .   1   .   1
+12   .   .   .   .   .   .   .   .   .   .   .   .   0
+13   .   .   .   .   .   .   .   .   .   .   .   .   1
+;
+
+Number of tracks from station i to station j:
+x_num_tracks [*,*]
+:    1   2   3   4   5   6   7   8   9  10  11  12  13  14    :=
+1    .   1   .   .   1   .   0   .   0   .   .   .   .   .
+2    1   .   1   .   1   0   1   .   0   .   .   .   .   .
+3    .   1   .   1   .   0   0   0   .   0   .   .   .   .
+4    .   .   2   .   .   0   .   0   .   0   .   .   .   .
+5    0   2   .   .   .   .   0   .   2   .   0   .   .   .
+6    .   0   0   0   .   .   0   1   .   0   0   .   .   .
+7    0   0   0   .   0   1   .   0   0   0   0   0   .   .
+8    .   .   0   0   .   1   0   .   .   1   0   .   0   0
+9    0   0   .   .   1   .   0   .   .   .   0   2   .   .
+10   .   .   0   2   .   0   0   1   .   .   0   .   1   0
+11   .   .   .   .   0   0   0   0   0   0   .   0   .   2
+12   .   .   .   .   .   .   0   .   0   .   2   .   .   0
+13   .   .   .   .   .   .   .   0   .   2   .   .   .   0
+14   .   .   .   .   .   .   .   0   .   0   0   0   3   .
+;
+
+Number of units of shipment from station s to station d that go on arc (i,j):
+x_num_units [1,13,*,*]
+:    1   2   3   4   5    6   7   8   9   10   11   12   13   14    :=
+1    .   7   .   .   10   .   0   .    0   .   .    .    .    .
+2    0   .   0   .    4   0   3   .    0   .   .    .    .    .
+3    .   0   .   0   .    0   0   0   .    0   .    .    .    .
+4    .   .   0   .   .    0   .   0   .    0   .    .    .    .
+5    0   0   .   .   .    .   0   .   14   .    0   .    .    .
+6    .   0   0   0   .    .   0   3   .    0    0   .    .    .
+7    0   0   0   .    0   3   .   0    0   0    0    0   .    .
+8    .   .   0   0   .    0   0   .   .    3    0   .     0    0
+9    0   0   .   .    0   .   0   .   .    .    0   14   .    .
+10   .   .   0   0   .    0   0   0   .    .    0   .     3    0
+11   .   .   .   .    0   0   0   0    0   0   .     0   .    14
+12   .   .   .   .   .    .   0   .    0   .   14   .    .     0
+13   .   .   .   .   .    .   .   0   .    0   .    .    .     0
+14   .   .   .   .   .    .   .   0   .    0    0    0   14   .
+
+ [5,10,*,*]
+:    1   2   3   4   5   6   7   8   9  10  11  12  13  14    :=
+1    .   0   .   .   0   .   0   .   0   .   .   .   .   .
+2    0   .   0   .   0   0   7   .   0   .   .   .   .   .
+3    .   0   .   0   .   0   0   0   .   0   .   .   .   .
+4    .   .   0   .   .   0   .   0   .   0   .   .   .   .
+5    0   7   .   .   .   .   0   .   1   .   0   .   .   .
+6    .   0   0   0   .   .   0   7   .   0   0   .   .   .
+7    0   0   0   .   0   7   .   0   0   0   0   0   .   .
+8    .   .   0   0   .   0   0   .   .   7   0   .   0   0
+9    0   0   .   .   0   .   0   .   .   .   0   1   .   .
+10   .   .   0   0   .   0   0   0   .   .   0   .   0   0
+11   .   .   .   .   0   0   0   0   0   0   .   0   .   1
+12   .   .   .   .   .   .   0   .   0   .   1   .   .   0
+13   .   .   .   .   .   .   .   0   .   1   .   .   .   0
+14   .   .   .   .   .   .   .   0   .   0   0   0   1   .
+
+ [9,4,*,*]
+:    1   2   3   4   5   6   7   8   9  10  11  12  13  14    :=
+1    .   0   .   .   0   .   0   .   0   .   .   .   .   .
+2    0   .   8   .   0   0   0   .   0   .   .   .   .   .
+3    .   0   .   8   .   0   0   0   .   0   .   .   .   .
+4    .   .   0   .   .   0   .   0   .   0   .   .   .   .
+5    0   8   .   .   .   .   0   .   0   .   0   .   .   .
+6    .   0   0   0   .   .   0   0   .   0   0   .   .   .
+7    0   0   0   .   0   0   .   0   0   0   0   0   .   .
+8    .   .   0   0   .   0   0   .   .   0   0   .   0   0
+9    0   0   .   .   8   .   0   .   .   .   0   0   .   .
+10   .   .   0   0   .   0   0   0   .   .   0   .   0   0
+11   .   .   .   .   0   0   0   0   0   0   .   0   .   0
+12   .   .   .   .   .   .   0   .   0   .   0   .   .   0
+13   .   .   .   .   .   .   .   0   .   0   .   .   .   0
+14   .   .   .   .   .   .   .   0   .   0   0   0   0   .
+
+ [10,1,*,*]
+:    1   2   3   4   5   6   7   8   9  10  11  12  13  14    :=
+1    .   0   .   .   0   .   0   .   0   .   .   .   .   .
+2    8   .   0   .   0   0   0   .   0   .   .   .   .   .
+3    .   8   .   0   .   0   0   0   .   0   .   .   .   .
+4    .   .   8   .   .   0   .   0   .   0   .   .   .   .
+5    0   0   .   .   .   .   0   .   0   .   0   .   .   .
+6    .   0   0   0   .   .   0   0   .   0   0   .   .   .
+7    0   0   0   .   0   0   .   0   0   0   0   0   .   .
+8    .   .   0   0   .   0   0   .   .   0   0   .   0   0
+9    0   0   .   .   0   .   0   .   .   .   0   0   .   .
+10   .   .   0   8   .   0   0   0   .   .   0   .   0   0
+11   .   .   .   .   0   0   0   0   0   0   .   0   .   0
+12   .   .   .   .   .   .   0   .   0   .   0   .   .   0
+13   .   .   .   .   .   .   .   0   .   0   .   .   .   0
+14   .   .   .   .   .   .   .   0   .   0   0   0   0   .
+
+ [13,6,*,*]
+:    1   2   3   4   5   6   7   8   9  10  11  12  13  14    :=
+1    .   0   .   .   0   .   0   .   0   .   .   .   .   .
+2    0   .   0   .   0   0   0   .   0   .   .   .   .   .
+3    .   0   .   0   .   0   0   0   .   0   .   .   .   .
+4    .   .   0   .   .   0   .   0   .   0   .   .   .   .
+5    0   0   .   .   .   .   0   .   0   .   0   .   .   .
+6    .   0   0   0   .   .   0   0   .   0   0   .   .   .
+7    0   0   0   .   0   0   .   0   0   0   0   0   .   .
+8    .   .   0   0   .   6   0   .   .   0   0   .   0   0
+9    0   0   .   .   0   .   0   .   .   .   0   0   .   .
+10   .   .   0   0   .   0   0   6   .   .   0   .   0   0
+11   .   .   .   .   0   0   0   0   0   0   .   0   .   0
+12   .   .   .   .   .   .   0   .   0   .   0   .   .   0
+13   .   .   .   .   .   .   .   0   .   6   .   .   .   0
+14   .   .   .   .   .   .   .   0   .   0   0   0   0   .
+
+ [14,3,*,*]
+:    1   2   3   4   5   6   7   8   9  10  11  12  13  14    :=
+1    .   0   .   .   0   .   0   .   0   .   .   .   .   .
+2    0   .   0   .   0   0   0   .   0   .   .   .   .   .
+3    .   0   .   0   .   0   0   0   .   0   .   .   .   .
+4    .   .   7   .   .   0   .   0   .   0   .   .   .   .
+5    0   0   .   .   .   .   0   .   0   .   0   .   .   .
+6    .   0   0   0   .   .   0   0   .   0   0   .   .   .
+7    0   0   0   .   0   0   .   0   0   0   0   0   .   .
+8    .   .   0   0   .   0   0   .   .   0   0   .   0   0
+9    0   0   .   .   0   .   0   .   .   .   0   0   .   .
+10   .   .   0   7   .   0   0   0   .   .   0   .   0   0
+11   .   .   .   .   0   0   0   0   0   0   .   0   .   0
+12   .   .   .   .   .   .   0   .   0   .   0   .   .   0
+13   .   .   .   .   .   .   .   0   .   7   .   .   .   0
+14   .   .   .   .   .   .   .   0   .   0   0   0   7   .
+;
+
 ################################### SCENARIO 5 #################################
+##################### Reloading Stations cost $1 million #######################
 CPLEX 12.6.3.0: mipdisplay=2
 mipgap=1e-8
 MIP Presolve modified 52 coefficients.
@@ -817,7 +1608,7 @@ Probing time = 0.00 sec. (0.08 ticks)
 MIP emphasis: balance optimality and feasibility.
 MIP search method: dynamic search.
 Parallel mode: deterministic, using up to 4 threads.
-Root relaxation solution time = 0.01 sec. (6.22 ticks)
+Root relaxation solution time = 0.02 sec. (6.22 ticks)
 
         Nodes                                         Cuts/
    Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
@@ -863,7 +1654,7 @@ Elapsed time = 0.81 sec. (354.97 ticks, tree = 0.01 MB)
 *   803+  652                        37083.7681    31759.6662            14.36%
 *   803+  652                        37052.6016    31759.6662            14.28%
    2386  1818    33132.1535   176    37052.6016    32377.4768    76979   12.62%
-Elapsed time = 2.39 sec. (1311.51 ticks, tree = 3.46 MB)
+Elapsed time = 2.42 sec. (1311.51 ticks, tree = 3.46 MB)
    2424  1838    32794.1351   246    37052.6016    32875.1970    79602   11.27%
    2425  1838    32862.1093   227    37052.6016    32875.1970    79740   11.27%
    2426  1838    33017.3287   195    37052.6016    32875.1970    79925   11.27%
@@ -874,7 +1665,7 @@ Elapsed time = 2.39 sec. (1311.51 ticks, tree = 3.46 MB)
    2431  1841    33490.3514   157    37052.6016    33017.5515    80879   10.89%
    2432  1841    33266.1898   194    37052.6016    33017.5515    80972   10.89%
    2433  1842    33403.2368   189    37052.6016    33017.5515    81089   10.89%
-Elapsed time = 8.39 sec. (3925.23 ticks, tree = 4.16 MB)
+Elapsed time = 8.13 sec. (3925.23 ticks, tree = 4.16 MB)
    3114  1801    34326.2287    89    37052.6016    33597.7194   127113    9.32%
    3118  1803    34493.1249   130    37052.6016    33597.7194   127374    9.32%
    3122  1807    35640.9981    96    37052.6016    33597.7194   127830    9.32%
@@ -885,7 +1676,7 @@ Elapsed time = 8.39 sec. (3925.23 ticks, tree = 4.16 MB)
    3132  1813    34764.6567    83    37052.6016    33597.7194   128392    9.32%
    3134  1812    34785.9387   106    37052.6016    33597.7194   128488    9.32%
    3135  1813    36519.1355   128    37052.6016    33597.7194   128662    9.32%
-Elapsed time = 9.86 sec. (4893.78 ticks, tree = 3.62 MB)
+Elapsed time = 9.59 sec. (4893.78 ticks, tree = 3.62 MB)
 *  3710+ 1596                        36335.4238    33764.3864             7.08%
    3724  1600    36168.5884   119    36335.4238    33764.3864   168314    7.08%
    3728  1598    36294.5312   119    36335.4238    33764.3864   168451    7.08%
@@ -897,7 +1688,7 @@ Elapsed time = 9.86 sec. (4893.78 ticks, tree = 3.62 MB)
    3742  1597    36878.6596   127    36335.4238    33764.3864   169302    7.08%
    3744  1598    33896.0173   168    36335.4238    33764.3864   169481    7.08%
    3761  1600    35219.3519   119    36335.4238    33764.3864   170079    7.08%
-Elapsed time = 11.38 sec. (5851.82 ticks, tree = 2.83 MB)
+Elapsed time = 11.05 sec. (5851.82 ticks, tree = 2.83 MB)
    4389  1423    34191.5558   164    36335.4238    33926.6089   220126    6.63%
    4390  1423    34493.3980   128    36335.4238    33926.6089   220188    6.63%
    4393  1421    34215.1060   158    36335.4238    33926.6089   220264    6.63%
@@ -908,7 +1699,7 @@ Elapsed time = 11.38 sec. (5851.82 ticks, tree = 2.83 MB)
    4400  1422    35989.6948   151    36335.4238    33926.6089   220625    6.63%
    4401  1423    34458.8390   138    36335.4238    33926.6089   220746    6.63%
    4402  1424    35170.5766   108    36335.4238    33926.6089   220914    6.63%
-Elapsed time = 13.09 sec. (6908.65 ticks, tree = 2.68 MB)
+Elapsed time = 12.72 sec. (6908.65 ticks, tree = 2.68 MB)
    5108  1674    35886.7383   144    36335.4238    34063.3462   275010    6.25%
    5112  1676    35894.0293   136    36335.4238    34063.3462   275238    6.25%
    5116  1678    36200.3383   122    36335.4238    34063.3462   275548    6.25%
@@ -919,7 +1710,7 @@ Elapsed time = 13.09 sec. (6908.65 ticks, tree = 2.68 MB)
    5129  1683    35525.5309   133    36335.4238    34063.3462   276442    6.25%
    5132  1682        cutoff          36335.4238    34063.3462   276517    6.25%
    5133  1683    35682.3348   109    36335.4238    34063.3462   276568    6.25%
-Elapsed time = 14.64 sec. (7868.75 ticks, tree = 3.08 MB)
+Elapsed time = 14.28 sec. (7868.75 ticks, tree = 3.08 MB)
    5865  2165    34777.5205   151    36335.4238    34126.9250   334570    6.08%
    5866  2166    34535.4710   160    36335.4238    34174.4153   334623    5.95%
    5867  2167    35351.9443   121    36335.4238    34174.4153   334734    5.95%
@@ -930,7 +1721,7 @@ Elapsed time = 14.64 sec. (7868.75 ticks, tree = 3.08 MB)
    5872  2172    35200.8780   102    36335.4238    34174.4153   335138    5.95%
    5873  2173    34554.7494   134    36335.4238    34174.4153   335212    5.95%
    5874  2174    34746.8985   102    36335.4238    34174.4153   335319    5.95%
-Elapsed time = 16.27 sec. (8947.24 ticks, tree = 4.03 MB)
+Elapsed time = 15.88 sec. (8947.24 ticks, tree = 4.03 MB)
    6536  2608    34836.0674   173    36335.4238    34240.2932   382485    5.77%
    6540  2612    34933.4033   164    36335.4238    34240.2932   382783    5.77%
    6544  2616    36005.0369   121    36335.4238    34240.2932   383101    5.77%
@@ -941,7 +1732,7 @@ Elapsed time = 16.27 sec. (8947.24 ticks, tree = 4.03 MB)
    6558  2624        cutoff          36335.4238    34240.2932   384010    5.77%
    6560  2626    35099.4213   168    36335.4238    34240.2932   384109    5.77%
    6561  2627    35644.0702    99    36335.4238    34240.2932   384160    5.77%
-Elapsed time = 17.88 sec. (9901.49 ticks, tree = 5.69 MB)
+Elapsed time = 17.47 sec. (9901.49 ticks, tree = 5.69 MB)
    7369  3151    34820.7530   172    36335.4238    34296.5516   436084    5.61%
    7373  3155    34893.7236   170    36335.4238    34296.5516   436436    5.61%
    7377  3157    34913.4095   165    36335.4238    34296.5516   436733    5.61%
@@ -952,7 +1743,7 @@ Elapsed time = 17.88 sec. (9901.49 ticks, tree = 5.69 MB)
    7397  3169    35358.8374   134    36335.4238    34296.5516   438047    5.61%
    7401  3171    35364.3061   123    36335.4238    34296.5516   438296    5.61%
    7405  3175    35565.7013   101    36335.4238    34296.5516   438651    5.61%
-Elapsed time = 19.38 sec. (10879.54 ticks, tree = 7.38 MB)
+Elapsed time = 18.98 sec. (10879.54 ticks, tree = 7.38 MB)
    8223  3705    34668.3134   141    36335.4238    34390.6814   485219    5.35%
    8227  3709    34710.2331   138    36335.4238    34390.6814   485310    5.35%
    8231  3713    34745.8206   107    36335.4238    34390.6814   485468    5.35%
@@ -963,7 +1754,7 @@ Elapsed time = 19.38 sec. (10879.54 ticks, tree = 7.38 MB)
    8251  3728    35324.6018    17    36335.4238    34390.6814   486144    5.35%
    8255  3730    35377.4690   126    36335.4238    34390.6814   486326    5.35%
   11068  5340    35186.3418   146    36335.4238    34538.3234   626977    4.95%
-Elapsed time = 25.64 sec. (14696.50 ticks, tree = 20.44 MB)
+Elapsed time = 25.27 sec. (14696.50 ticks, tree = 20.44 MB)
   15004  7491    35332.5856   131    36335.4238    34733.3085   816851    4.41%
   15005  7492    35361.2058   118    36335.4238    34733.3085   816888    4.41%
   15008  7493    35796.7234   133    36335.4238    34733.3085   817017    4.41%
@@ -974,7 +1765,7 @@ Elapsed time = 25.64 sec. (14696.50 ticks, tree = 20.44 MB)
   15014  7499    35006.6535   111    36335.4238    34733.3085   817294    4.41%
   15015  7500    35397.2791   128    36335.4238    34733.3085   817396    4.41%
   15016  7501    36067.8791   125    36335.4238    34733.3085   817451    4.41%
-Elapsed time = 31.95 sec. (18527.87 ticks, tree = 38.71 MB)
+Elapsed time = 31.58 sec. (18527.87 ticks, tree = 38.71 MB)
   19143  9609    34933.2091   108    36335.4238    34851.4160  1009214    4.08%
   19147  9611    34949.7788   105    36335.4238    34851.4160  1009513    4.08%
   19151  9615    35034.2372    99    36335.4238    34851.4160  1009790    4.08%
@@ -985,7 +1776,7 @@ Elapsed time = 31.95 sec. (18527.87 ticks, tree = 38.71 MB)
   19171  9627    35865.7415    57    36335.4238    34851.4160  1010520    4.08%
   19175  9629    35925.0474    91    36335.4238    34851.4160  1010563    4.08%
   19179  9630    36152.9594    21    36335.4238    34851.4160  1010793    4.08%
-Elapsed time = 38.63 sec. (22362.22 ticks, tree = 54.32 MB)
+Elapsed time = 37.89 sec. (22362.22 ticks, tree = 54.32 MB)
 * 19804+ 9912                        36114.5445    34870.4117             3.44%
   23374  9982    35567.3667   114    36114.5445    34981.0387  1206355    3.14%
   23378  9984    35819.0942    81    36114.5445    34981.0387  1206616    3.14%
@@ -997,7 +1788,7 @@ Elapsed time = 38.63 sec. (22362.22 ticks, tree = 54.32 MB)
   23390  9990    35991.7023    76    36114.5445    34981.0387  1207060    3.14%
   23391  9991    35694.7630    99    36114.5445    34981.0387  1207095    3.14%
   23394  9990        cutoff          36114.5445    34981.0387  1207149    3.14%
-Elapsed time = 45.33 sec. (26194.40 ticks, tree = 59.17 MB)
+Elapsed time = 44.52 sec. (26194.40 ticks, tree = 59.17 MB)
 * 26101+10864                        36083.7681    35062.2733             2.83%
   26433 10646    36017.9887    77    36083.7681    35062.2733  1341669    2.83%
   26437 10644        cutoff          36083.7681    35062.2733  1341817    2.83%
@@ -1009,7 +1800,7 @@ Elapsed time = 45.33 sec. (26194.40 ticks, tree = 59.17 MB)
   26461 10646    36057.2267   107    36083.7681    35062.2733  1342625    2.83%
   26465 10646        cutoff          36083.7681    35062.2733  1342778    2.83%
   26469 10650    36009.4471   113    36083.7681    35062.2733  1343235    2.83%
-Elapsed time = 52.39 sec. (30044.39 ticks, tree = 65.86 MB)
+Elapsed time = 52.19 sec. (30044.39 ticks, tree = 65.86 MB)
   31150 12033    35999.1670   161    36083.7681    35186.8357  1546935    2.49%
   31154 12031        cutoff          36083.7681    35186.8357  1547034    2.49%
   31158 12029        cutoff          36083.7681    35186.8357  1547146    2.49%
@@ -1020,7 +1811,7 @@ Elapsed time = 52.39 sec. (30044.39 ticks, tree = 65.86 MB)
   31174 12035    35663.6055    66    36083.7681    35186.8357  1547783    2.49%
   31177 12034        cutoff          36083.7681    35186.8357  1547824    2.49%
   31178 12035    35688.1424    23    36083.7681    35186.8357  1547831    2.49%
-Elapsed time = 59.22 sec. (33902.18 ticks, tree = 76.07 MB)
+Elapsed time = 59.08 sec. (33902.18 ticks, tree = 76.07 MB)
   36381 13332        cutoff          36083.7681    35284.0784  1756396    2.22%
   36385 13334    35702.6060    88    36083.7681    35284.0784  1756643    2.22%
   36389 13338    35958.7538    94    36083.7681    35284.0784  1756965    2.22%
@@ -1031,7 +1822,7 @@ Elapsed time = 59.22 sec. (33902.18 ticks, tree = 76.07 MB)
   36402 13341    36024.8184   160    36083.7681    35284.0784  1757498    2.22%
   36405 13340    35718.8649   136    36083.7681    35284.0784  1757579    2.22%
   36406 13341    36074.8183   137    36083.7681    35284.0784  1757684    2.22%
-Elapsed time = 66.11 sec. (37733.88 ticks, tree = 86.65 MB)
+Elapsed time = 66.02 sec. (37733.88 ticks, tree = 86.65 MB)
   41251 14097    35510.1895   120    36083.7681    35374.5724  1949441    1.97%
   41255 14098    35689.9375   117    36083.7681    35374.5724  1949552    1.97%
   41259 14094        cutoff          36083.7681    35374.5724  1949557    1.97%
@@ -1042,7 +1833,7 @@ Elapsed time = 66.11 sec. (37733.88 ticks, tree = 86.65 MB)
   41279 14096    35846.4961   148    36083.7681    35374.5724  1950193    1.97%
   41283 14098    35872.7691   147    36083.7681    35374.5724  1950293    1.97%
   41287 14094        cutoff          36083.7681    35374.5724  1950327    1.97%
-Elapsed time = 73.02 sec. (41575.78 ticks, tree = 93.23 MB)
+Elapsed time = 73.11 sec. (41575.78 ticks, tree = 93.23 MB)
   46193 14357    35617.0852   103    36083.7681    35478.5383  2149199    1.68%
   46197 14359    35770.0504    93    36083.7681    35478.5383  2149350    1.68%
   46201 14357    35789.7230    89    36083.7681    35478.5383  2149441    1.68%
@@ -1053,7 +1844,7 @@ Elapsed time = 73.02 sec. (41575.78 ticks, tree = 93.23 MB)
   46218 14356    35813.7328    18    36083.7681    35478.5383  2150315    1.68%
   46220 14356    35617.7408   146    36083.7681    35478.5383  2150397    1.68%
   46221 14355        cutoff          36083.7681    35478.5383  2150451    1.68%
-Elapsed time = 79.92 sec. (45414.37 ticks, tree = 96.92 MB)
+Elapsed time = 80.08 sec. (45414.37 ticks, tree = 96.92 MB)
   51248 14175    35913.4827    61    36083.7681    35557.5954  2341495    1.46%
   51252 14175    35923.5284    54    36083.7681    35557.5954  2341660    1.46%
   51256 14174    35975.3949    37    36083.7681    35557.5954  2341736    1.46%
@@ -1064,7 +1855,7 @@ Elapsed time = 79.92 sec. (45414.37 ticks, tree = 96.92 MB)
   51276 14166    35998.2528    77    36083.7681    35557.5954  2342756    1.46%
   51280 14162        cutoff          36083.7681    35557.5954  2342820    1.46%
   51284 14162        cutoff          36083.7681    35557.5954  2342937    1.46%
-Elapsed time = 86.86 sec. (49250.83 ticks, tree = 95.86 MB)
+Elapsed time = 87.08 sec. (49250.83 ticks, tree = 95.86 MB)
   56576 13198    35655.8785    55    36083.7681    35642.0148  2527769    1.22%
   56592 13193        cutoff          36083.7681    35653.7408  2528445    1.19%
   56593 13192        cutoff          36083.7681    35653.7408  2528450    1.19%
@@ -1075,7 +1866,7 @@ Elapsed time = 86.86 sec. (49250.83 ticks, tree = 95.86 MB)
   56598 13193        cutoff          36083.7681    35653.7408  2528617    1.19%
   56599 13194    35976.5768    60    36083.7681    35653.7408  2528638    1.19%
   56600 13193        cutoff          36083.7681    35653.7408  2528653    1.19%
-Elapsed time = 94.16 sec. (53082.61 ticks, tree = 88.60 MB)
+Elapsed time = 94.17 sec. (53082.61 ticks, tree = 88.60 MB)
   62100 11294        cutoff          36083.7681    35743.4795  2701326    0.94%
   62104 11294    35905.5989    78    36083.7681    35743.4795  2701405    0.94%
   62108 11292    35955.1999    19    36083.7681    35743.4795  2701507    0.94%
@@ -1086,7 +1877,7 @@ Elapsed time = 94.16 sec. (53082.61 ticks, tree = 88.60 MB)
   62128 11279        cutoff          36083.7681    35743.4795  2701881    0.94%
   62132 11281    35933.0087   144    36083.7681    35743.4795  2702043    0.94%
   62136 11279    36038.7208   141    36083.7681    35743.4795  2702168    0.94%
-Elapsed time = 101.55 sec. (56916.90 ticks, tree = 76.40 MB)
+Elapsed time = 101.36 sec. (56916.90 ticks, tree = 76.40 MB)
   68776  7134        cutoff          36083.7681    35875.7377  2880197    0.58%
   68780  7130    36057.8969    69    36083.7681    35875.7377  2880257    0.58%
   68784  7128    35902.2721   129    36083.7681    35875.7377  2880373    0.58%
@@ -1097,7 +1888,7 @@ Elapsed time = 101.55 sec. (56916.90 ticks, tree = 76.40 MB)
   68804  7117    35986.5024    47    36083.7681    35875.7377  2880958    0.58%
   68805  7116        cutoff          36083.7681    35875.7377  2880972    0.58%
   68808  7113        cutoff          36083.7681    35875.7377  2881002    0.58%
-Elapsed time = 109.02 sec. (60758.17 ticks, tree = 46.20 MB)
+Elapsed time = 108.74 sec. (60758.17 ticks, tree = 46.20 MB)
 * 72909+ 3787                        36082.2479    35959.3958             0.34%
 
 Implied bound cuts applied:  6
@@ -1110,13 +1901,13 @@ Lift and project cuts applied:  102
 Gomory fractional cuts applied:  1
 
 Root node processing (before b&c):
-  Real time             =    0.80 sec. (354.61 ticks)
+  Real time             =    0.81 sec. (354.61 ticks)
 Parallel b&c, 4 threads:
-  Real time             =  114.92 sec. (63620.36 ticks)
-  Sync time (average)   =    3.47 sec.
-  Wait time (average)   =    3.55 sec.
+  Real time             =  114.41 sec. (63620.36 ticks)
+  Sync time (average)   =    3.11 sec.
+  Wait time (average)   =    3.21 sec.
                           ------------
-Total (root+branch&cut) =  115.72 sec. (63974.97 ticks)
+Total (root+branch&cut) =  115.22 sec. (63974.97 ticks)
 CPLEX 12.6.3.0: optimal integer solution; objective 36082.24793
 2989236 MIP simplex iterations
 76882 branch-and-bound nodes
@@ -1346,6 +2137,343 @@ x_num_units [1,13,*,*]
 11   .   .   .   .   0   0   0   0   0   0   .   0   .   0
 12   .   .   .   .   .   .   0   .   0   .   0   .   .   0
 13   .   .   .   .   .   .   .   7   .   0   .   .   .   0
+14   .   .   .   .   .   .   .   0   .   0   0   0   7   .
+;
+
+################################### SCENARIO 5 #################################
+###################### Reloading Stations cost $500,000 ########################
+CPLEX 12.6.3.0: mipdisplay=2
+mipgap=1e-8
+MIP Presolve modified 52 coefficients.
+Reduced MIP has 306 rows, 964 columns, and 3594 nonzeros.
+Reduced MIP has 26 binaries, 938 generals, 0 SOSs, and 0 indicators.
+Found incumbent of value 8095354.652400 after 0.03 sec. (11.29 ticks)
+Probing time = 0.00 sec. (0.09 ticks)
+Reduced MIP has 306 rows, 964 columns, and 3594 nonzeros.
+Reduced MIP has 26 binaries, 938 generals, 0 SOSs, and 0 indicators.
+Probing time = 0.00 sec. (0.08 ticks)
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 4 threads.
+Root relaxation solution time = 0.02 sec. (6.02 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                      8095354.6524   -18390.8543           100.23%
+*     0+    0                      7490398.5983   -18390.8543           100.25%
+*     0+    0                      7399398.5983   -18390.8543           100.25%
+*     0+    0                      7308398.5983   -18390.8543           100.25%
+*     0+    0                      7217398.5983   -18390.8543           100.25%
+*     0+    0                      7126398.5983   -18390.8543           100.26%
+      0     0    17657.2136    89  7126398.5983    17657.2136      289   99.75%
+      0     0    19196.5378   116  7126398.5983      Cuts: 58      376   99.73%
+*     0+    0                        43709.9084    19196.5378            56.08%
+      0     0    19981.8698   139    43709.9084      Cuts: 52      448   54.29%
+      0     0    20099.3708   120    43709.9084      Cuts: 17      484   54.02%
+*     0+    0                        38886.3462    20099.3708            48.31%
+      0     0    20207.3477   153    38886.3462      Cuts: 15      519   48.03%
+      0     0    20238.2995   148    38886.3462       Cuts: 8      535   47.96%
+      0     0    20240.5276   145    38886.3462       Cuts: 5      544   47.95%
+      0     0    20256.8508   153    38886.3462       Cuts: 6      560   47.91%
+      0     0    20258.5088   166    38886.3462       Cuts: 7      569   47.90%
+      0     0    20258.8208   173    38886.3462    MIRcuts: 1      570   47.90%
+*     0+    0                        27840.7395    20258.8208            27.23%
+      0     0    20262.3063   155    27840.7395    MIRcuts: 6      575   27.22%
+      0     0    20365.3040   164    27840.7395       Cuts: 9      621   26.85%
+      0     0    20381.8878   165    27840.7395       Cuts: 9      642   26.79%
+      0     0    20384.7258   181    27840.7395       Cuts: 3      648   26.78%
+      0     0    20390.2553   172    27840.7395       Cuts: 3      665   26.76%
+      0     0    20391.7484   176    27840.7395       Cuts: 8      677   26.76%
+*     0+    0                        27101.4244    20391.7484            24.76%
+*     0+    0                        25406.2302    20391.7484            19.74%
+*     0+    0                        25297.6927    20391.7484            19.39%
+*     0+    0                        25121.3624    20391.7484            18.83%
+      0     2    20391.7484   176    25121.3624    20641.2712      677   17.83%
+Elapsed time = 0.78 sec. (364.73 ticks, tree = 0.01 MB)
+*   345+  292                        24944.1393    20641.2712            17.25%
+    774   602    22452.5222   130    24944.1393    21492.8225    20670   13.84%
+    780   608    23105.3772    46    24944.1393    21508.9325    20735   13.77%
+    781   609    22452.5222   132    24944.1393    21508.9325    20737   13.77%
+    782   610    24721.7172    72    24944.1393    21508.9325    20744   13.77%
+    783   611    24412.6572   129    24944.1393    21508.9325    20772   13.77%
+    784   612    23184.8417   132    24944.1393    21508.9325    20812   13.77%
+    785   613    22502.9080   111    24944.1393    21508.9325    20850   13.77%
+    786   612        cutoff          24944.1393    21508.9325    20851   13.77%
+    787   613    24427.1175   139    24944.1393    21508.9325    20860   13.77%
+*  2393+ 1197                        23847.2132    21710.2487             8.96%
+*  2393+  797                        23669.9902    21710.2487             8.28%
+   2393   798    21537.4177   250    23669.9902    22015.3774    51398    6.99%
+Elapsed time = 5.97 sec. (2694.97 ticks, tree = 2.34 MB)
+   2913   480    23661.4581   110    23669.9902    22236.4055    68014    6.06%
+   2915   482    22974.7055    16    23669.9902    22236.4055    68111    6.06%
+   2916   483    22845.9171   160    23669.9902    22236.4055    68162    6.06%
+   2917   481        cutoff          23669.9902    22236.4055    68163    6.06%
+   2918   481    23236.0169   107    23669.9902    22236.4055    68179    6.06%
+   2919   482    22974.7055    31    23669.9902    22236.4055    68182    6.06%
+   2920   482    22903.8292   140    23669.9902    22236.4055    68239    6.06%
+   2921   480        cutoff          23669.9902    22236.4055    68242    6.06%
+   2922   478        cutoff          23669.9902    22236.4055    68244    6.06%
+   2923   479    23019.9730    39    23669.9902    22236.4055    68272    6.06%
+Elapsed time = 7.19 sec. (3650.07 ticks, tree = 1.83 MB)
+*  4476  1019      integral     0    23316.4368    22729.0542   111387    2.52%
+   4899   571    23263.5697    76    23316.4368    22871.2039   122841    1.91%
+   4900   572    23062.5697    85    23316.4368    22871.2039   122866    1.91%
+   4903   571        cutoff          23316.4368    22871.2039   122883    1.91%
+   4904   571    23312.5955    46    23316.4368    22871.2039   122968    1.91%
+   4907   572        cutoff          23316.4368    22871.2039   122997    1.91%
+   4908   571    23316.1771    43    23316.4368    22871.2039   123002    1.91%
+   4909   571    23184.2939    89    23316.4368    22871.2039   123051    1.91%
+   4911   569        cutoff          23316.4368    22871.2039   123085    1.91%
+   4912   570    23031.3263   107    23316.4368    22871.2039   123191    1.91%
+   4913   571    23191.1584    78    23316.4368    22871.2039   123212    1.91%
+Elapsed time = 8.88 sec. (4604.64 ticks, tree = 2.23 MB)
+
+Implied bound cuts applied:  2
+Flow cuts applied:  84
+Mixed integer rounding cuts applied:  74
+Flow path cuts applied:  8
+Zero-half cuts applied:  2
+Multi commodity flow cuts applied:  24
+Lift and project cuts applied:  28
+
+Root node processing (before b&c):
+  Real time             =    0.78 sec. (364.35 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    8.89 sec. (4679.42 ticks)
+  Sync time (average)   =    0.55 sec.
+  Wait time (average)   =    0.58 sec.
+                          ------------
+Total (root+branch&cut) =    9.67 sec. (5043.77 ticks)
+CPLEX 12.6.3.0: optimal integer solution; objective 23316.43678
+145902 MIP simplex iterations
+6274 branch-and-bound nodes
+No basis.
+
+Number of reloading buildings at each station:
+x_num_reload_bldg [*] :=
+ 1   5
+ 2   6
+ 3   5
+ 4   7
+ 5   6
+ 6   4
+ 7   2
+ 8   4
+ 9  10
+10  15
+11  11
+12   3
+13   7
+14   4
+;
+
+Line exists between stations i and j:
+x_line_exist [*,*]
+:    2   3   4   5   6   7   8   9  10  11  12  13  14    :=
+1    1   .   .   1   .   0   .   0   .   .   .   .   .
+2    .   1   .   1   0   1   .   0   .   .   .   .   .
+3    .   .   1   .   0   0   0   .   0   .   .   .   .
+4    .   .   .   .   0   .   0   .   1   .   .   .   .
+5    .   .   .   .   .   0   .   1   .   0   .   .   .
+6    .   .   .   .   .   1   1   .   0   0   .   .   .
+7    .   .   .   .   .   .   0   0   0   0   0   .   .
+8    .   .   .   .   .   .   .   .   1   0   .   0   0
+9    .   .   .   .   .   .   .   .   .   1   1   .   .
+10   .   .   .   .   .   .   .   .   .   1   .   1   0
+11   .   .   .   .   .   .   .   .   .   .   1   .   1
+12   .   .   .   .   .   .   .   .   .   .   .   .   0
+13   .   .   .   .   .   .   .   .   .   .   .   .   1
+;
+
+Number of tracks from station i to station j:
+x_num_tracks [*,*]
+:    1   2   3   4   5   6   7   8   9  10  11  12  13  14    :=
+1    .   1   .   .   1   .   0   .   0   .   .   .   .   .
+2    1   .   1   .   1   0   1   .   0   .   .   .   .   .
+3    .   1   .   1   .   0   0   0   .   0   .   .   .   .
+4    .   .   2   .   .   0   .   0   .   1   .   .   .   .
+5    0   1   .   .   .   .   0   .   2   .   0   .   .   .
+6    .   0   0   0   .   .   0   1   .   0   0   .   .   .
+7    0   0   0   .   0   1   .   0   0   0   0   0   .   .
+8    .   .   0   0   .   1   0   .   .   1   0   .   0   0
+9    0   0   .   .   1   .   0   .   .   .   3   1   .   .
+10   .   .   0   2   .   0   0   1   .   .   1   .   1   0
+11   .   .   .   .   0   0   0   0   0   3   .   1   .   1
+12   .   .   .   .   .   .   0   .   1   .   1   .   .   0
+13   .   .   .   .   .   .   .   0   .   2   .   .   .   1
+14   .   .   .   .   .   .   .   0   .   0   1   0   2   .
+;
+
+Number of units of shipment from station s to station d that go on arc (i,j):
+x_num_units [1,13,*,*]
+:    1   2   3   4   5   6   7   8   9  10  11  12  13  14    :=
+1    .   8   .   .   9   .   0   .   0   .   .   .   .   .
+2    0   .   0   .   0   0   8   .   0   .   .   .   .   .
+3    .   0   .   0   .   0   0   0   .   0   .   .   .   .
+4    .   .   0   .   .   0   .   0   .   0   .   .   .   .
+5    0   0   .   .   .   .   0   .   9   .   0   .   .   .
+6    .   0   0   0   .   .   0   8   .   0   0   .   .   .
+7    0   0   0   .   0   8   .   0   0   0   0   0   .   .
+8    .   .   0   0   .   0   0   .   .   8   0   .   0   0
+9    0   0   .   .   0   .   0   .   .   .   9   0   .   .
+10   .   .   0   0   .   0   0   0   .   .   0   .   8   0
+11   .   .   .   .   0   0   0   0   0   0   .   0   .   9
+12   .   .   .   .   .   .   0   .   0   .   0   .   .   0
+13   .   .   .   .   .   .   .   0   .   0   .   .   .   0
+14   .   .   .   .   .   .   .   0   .   0   0   0   9   .
+
+ [4,11,*,*]
+:    1   2   3   4   5   6   7   8   9  10  11  12  13  14    :=
+1    .   0   .   .   0   .   0   .   0   .   .   .   .   .
+2    0   .   0   .   1   0   0   .   0   .   .   .   .   .
+3    .   1   .   0   .   0   0   0   .   0   .   .   .   .
+4    .   .   1   .   .   0   .   0   .   9   .   .   .   .
+5    0   0   .   .   .   .   0   .   1   .   0   .   .   .
+6    .   0   0   0   .   .   0   0   .   0   0   .   .   .
+7    0   0   0   .   0   0   .   0   0   0   0   0   .   .
+8    .   .   0   0   .   0   0   .   .   0   0   .   0   0
+9    0   0   .   .   0   .   0   .   .   .   1   0   .   .
+10   .   .   0   0   .   0   0   0   .   .   9   .   0   0
+11   .   .   .   .   0   0   0   0   0   0   .   1   .   0
+12   .   .   .   .   .   .   0   .   0   .   1   .   .   0
+13   .   .   .   .   .   .   .   0   .   0   .   .   .   0
+14   .   .   .   .   .   .   .   0   .   0   0   0   0   .
+
+ [5,10,*,*]
+:    1   2   3   4   5   6   7   8   9  10  11  12  13  14    :=
+1    .   0   .   .   0   .   0   .   0   .   .   .   .   .
+2    0   .   0   .   0   0   1   .   0   .   .   .   .   .
+3    .   0   .   0   .   0   0   0   .   0   .   .   .   .
+4    .   .   0   .   .   0   .   0   .   0   .   .   .   .
+5    0   1   .   .   .   .   0   .   7   .   0   .   .   .
+6    .   0   0   0   .   .   0   1   .   0   0   .   .   .
+7    0   0   0   .   0   1   .   0   0   0   0   0   .   .
+8    .   .   0   0   .   0   0   .   .   1   0   .   0   0
+9    0   0   .   .   0   .   0   .   .   .   0   7   .   .
+10   .   .   0   0   .   0   0   0   .   .   0   .   0   0
+11   .   .   .   .   0   0   0   0   0   6   .   0   .   1
+12   .   .   .   .   .   .   0   .   0   .   7   .   .   0
+13   .   .   .   .   .   .   .   0   .   1   .   .   .   0
+14   .   .   .   .   .   .   .   0   .   0   0   0   1   .
+
+ [9,4,*,*]
+:    1   2   3   4   5   6   7   8   9  10  11  12  13  14    :=
+1    .   0   .   .   0   .   0   .   0   .   .   .   .   .
+2    0   .   8   .   0   0   0   .   0   .   .   .   .   .
+3    .   0   .   8   .   0   0   0   .   0   .   .   .   .
+4    .   .   0   .   .   0   .   0   .   0   .   .   .   .
+5    0   8   .   .   .   .   0   .   0   .   0   .   .   .
+6    .   0   0   0   .   .   0   0   .   0   0   .   .   .
+7    0   0   0   .   0   0   .   0   0   0   0   0   .   .
+8    .   .   0   0   .   0   0   .   .   0   0   .   0   0
+9    0   0   .   .   8   .   0   .   .   .   0   0   .   .
+10   .   .   0   0   .   0   0   0   .   .   0   .   0   0
+11   .   .   .   .   0   0   0   0   0   0   .   0   .   0
+12   .   .   .   .   .   .   0   .   0   .   0   .   .   0
+13   .   .   .   .   .   .   .   0   .   0   .   .   .   0
+14   .   .   .   .   .   .   .   0   .   0   0   0   0   .
+
+ [9,10,*,*]
+:    1   2   3   4   5   6   7   8   9   10   11  12  13  14    :=
+1    .   0   .   .   0   .   0   .   0   .    .    .   .   .
+2    0   .   0   .   0   0   0   .   0   .    .    .   .   .
+3    .   0   .   0   .   0   0   0   .    0   .    .   .   .
+4    .   .   0   .   .   0   .   0   .    0   .    .   .   .
+5    0   0   .   .   .   .   0   .   0   .     0   .   .   .
+6    .   0   0   0   .   .   0   0   .    0    0   .   .   .
+7    0   0   0   .   0   0   .   0   0    0    0   0   .   .
+8    .   .   0   0   .   0   0   .   .    0    0   .   0   0
+9    0   0   .   .   0   .   0   .   .   .    18   2   .   .
+10   .   .   0   0   .   0   0   0   .   .     0   .   0   0
+11   .   .   .   .   0   0   0   0   0   20   .    0   .   0
+12   .   .   .   .   .   .   0   .   0   .     2   .   .   0
+13   .   .   .   .   .   .   .   0   .    0   .    .   .   1
+14   .   .   .   .   .   .   .   0   .    0    0   0   1   .
+
+ [10,1,*,*]
+:    1   2   3   4   5   6   7   8   9  10  11  12  13  14    :=
+1    .   0   .   .   0   .   0   .   0   .   .   .   .   .
+2    8   .   0   .   0   0   0   .   0   .   .   .   .   .
+3    .   8   .   0   .   0   0   0   .   0   .   .   .   .
+4    .   .   8   .   .   0   .   0   .   0   .   .   .   .
+5    0   0   .   .   .   .   0   .   0   .   0   .   .   .
+6    .   0   0   0   .   .   0   0   .   0   0   .   .   .
+7    0   0   0   .   0   0   .   0   0   0   0   0   .   .
+8    .   .   0   0   .   0   0   .   .   0   0   .   0   0
+9    0   0   .   .   0   .   0   .   .   .   0   0   .   .
+10   .   .   0   8   .   0   0   0   .   .   0   .   0   0
+11   .   .   .   .   0   0   0   0   0   0   .   0   .   0
+12   .   .   .   .   .   .   0   .   0   .   0   .   .   0
+13   .   .   .   .   .   .   .   0   .   0   .   .   .   0
+14   .   .   .   .   .   .   .   0   .   0   0   0   0   .
+
+ [10,9,*,*]
+:    1   2   3   4   5   6   7   8   9  10  11  12  13  14    :=
+1    .   0   .   .   0   .   0   .   0   .   .   .   .   .
+2    0   .   0   .   1   0   0   .   0   .   .   .   .   .
+3    .   1   .   0   .   0   0   0   .   0   .   .   .   .
+4    .   .   1   .   .   0   .   0   .   0   .   .   .   .
+5    0   0   .   .   .   .   0   .   1   .   0   .   .   .
+6    .   0   0   0   .   .   0   0   .   0   0   .   .   .
+7    0   0   0   .   0   0   .   0   0   0   0   0   .   .
+8    .   .   0   0   .   0   0   .   .   0   0   .   0   0
+9    0   0   .   .   0   .   0   .   .   .   0   0   .   .
+10   .   .   0   1   .   0   0   0   .   .   1   .   2   0
+11   .   .   .   .   0   0   0   0   0   0   .   3   .   0
+12   .   .   .   .   .   .   0   .   3   .   0   .   .   0
+13   .   .   .   .   .   .   .   0   .   0   .   .   .   2
+14   .   .   .   .   .   .   .   0   .   0   2   0   0   .
+
+ [11,6,*,*]
+:    1   2   3   4   5   6   7   8   9  10  11  12  13  14    :=
+1    .   0   .   .   0   .   0   .   0   .   .   .   .   .
+2    0   .   0   .   0   0   1   .   0   .   .   .   .   .
+3    .   0   .   0   .   0   0   0   .   0   .   .   .   .
+4    .   .   0   .   .   0   .   0   .   0   .   .   .   .
+5    0   1   .   .   .   .   0   .   0   .   0   .   .   .
+6    .   0   0   0   .   .   0   0   .   0   0   .   .   .
+7    0   0   0   .   0   1   .   0   0   0   0   0   .   .
+8    .   .   0   0   .   4   0   .   .   0   0   .   0   0
+9    0   0   .   .   1   .   0   .   .   .   0   0   .   .
+10   .   .   0   0   .   0   0   4   .   .   0   .   0   0
+11   .   .   .   .   0   0   0   0   0   4   .   1   .   0
+12   .   .   .   .   .   .   0   .   1   .   0   .   .   0
+13   .   .   .   .   .   .   .   0   .   0   .   .   .   0
+14   .   .   .   .   .   .   .   0   .   0   0   0   0   .
+
+ [13,6,*,*]
+:    1   2   3   4   5   6   7   8   9  10  11  12  13  14    :=
+1    .   0   .   .   0   .   0   .   0   .   .   .   .   .
+2    0   .   0   .   0   0   0   .   0   .   .   .   .   .
+3    .   0   .   0   .   0   0   0   .   0   .   .   .   .
+4    .   .   0   .   .   0   .   0   .   0   .   .   .   .
+5    0   0   .   .   .   .   0   .   0   .   0   .   .   .
+6    .   0   0   0   .   .   0   0   .   0   0   .   .   .
+7    0   0   0   .   0   0   .   0   0   0   0   0   .   .
+8    .   .   0   0   .   6   0   .   .   0   0   .   0   0
+9    0   0   .   .   0   .   0   .   .   .   0   0   .   .
+10   .   .   0   0   .   0   0   6   .   .   0   .   0   0
+11   .   .   .   .   0   0   0   0   0   0   .   0   .   0
+12   .   .   .   .   .   .   0   .   0   .   0   .   .   0
+13   .   .   .   .   .   .   .   0   .   6   .   .   .   0
+14   .   .   .   .   .   .   .   0   .   0   0   0   0   .
+
+ [14,3,*,*]
+:    1   2   3   4   5   6   7   8   9  10  11  12  13  14    :=
+1    .   0   .   .   0   .   0   .   0   .   .   .   .   .
+2    0   .   0   .   0   0   0   .   0   .   .   .   .   .
+3    .   0   .   0   .   0   0   0   .   0   .   .   .   .
+4    .   .   7   .   .   0   .   0   .   0   .   .   .   .
+5    0   0   .   .   .   .   0   .   0   .   0   .   .   .
+6    .   0   0   0   .   .   0   0   .   0   0   .   .   .
+7    0   0   0   .   0   0   .   0   0   0   0   0   .   .
+8    .   .   0   0   .   0   0   .   .   0   0   .   0   0
+9    0   0   .   .   0   .   0   .   .   .   0   0   .   .
+10   .   .   0   7   .   0   0   0   .   .   0   .   0   0
+11   .   .   .   .   0   0   0   0   0   0   .   0   .   0
+12   .   .   .   .   .   .   0   .   0   .   0   .   .   0
+13   .   .   .   .   .   .   .   0   .   7   .   .   .   0
 14   .   .   .   .   .   .   .   0   .   0   0   0   7   .
 ;
 
