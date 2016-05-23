@@ -1,0 +1,66 @@
+# This is the runfile for an AMPL model for the class project (phase 2)
+# IEMS 313
+
+reset;
+
+# Start log file
+option log_file solutions.log;
+	
+# Choose the CPLEX solver
+option solver cplex;
+
+# The following options do the following:
+# mipdisplay=2 : show output for te branch-and-bound search
+#                  (try to make sense out of the individual columns)
+# mipgap=1e-8  : Ask for a highly accurate solution
+option cplex_options 'mipdisplay=2 mipgap=1e-8';
+
+# Load the model
+model network_design.mod;
+
+for {t in 0..6} { 
+	
+	printf '################################### SCENARIO %d ##################################\n', t;
+	printf '##################### Reloading Stations cost $1 million #######################\n';
+
+	# Load the data for problem when reloading buildings cost $1 million
+	file_name := sprintf('data/scenario%s_1M.dat', t);
+	display file_name;
+	data file_name;
+	
+	solve;
+	
+	printf '\n';
+	printf 'Number of reloading buildings at each station:\n';
+	display x_num_reload_bldg;
+	printf 'Line exists between stations i and j:\n';
+	display x_line_exist;
+	printf 'Number of tracks from station i to station j:\n';
+	display x_num_tracks;
+	printf 'Number of units of shipment from station s to station d that go on arc (i,j):\n';
+	display x_num_units;
+	
+	printf '################################### SCENARIO %d ##################################\n', t;
+	printf '###################### Reloading Stations cost $500,000 ########################\n';
+	
+	# Load the data for problem when reloading buildings cost $500,000
+	file_name := sprintf('data/scenario%s_500K.dat', t);
+	data file_name;
+	
+	solve;
+	
+	printf '\n';
+	printf 'Number of reloading buildings at each station:\n';
+	display x_num_reload_bldg;
+	printf 'Line exists between stations i and j:\n';
+	display x_line_exist;
+	printf 'Number of tracks from station i to station j:\n';
+	display x_num_tracks;
+	printf 'Number of units of shipment from station s to station d that go on arc (i,j):\n';
+	display x_num_units;
+	
+}
+
+# Stop log file
+option log_file '';
+close;
