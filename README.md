@@ -2,4 +2,4 @@
 
 ### To Do:
 * Are we supposed to run separately 500K and 1 million?
-* Define line_exist param automatically?
+* For loop for run file?
