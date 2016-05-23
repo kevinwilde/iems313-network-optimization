@@ -1,0 +1,94 @@
+# This is the data for an AMPL model for the class project (phase 2)
+# Scenario 5
+# IEMS 313
+
+
+# Maximum length of tracks without station
+param max_line_length = 220;
+
+# Load to handle incoming goods that can be handled (including what comes from soure) per handling unit
+param load_per_building := 5;
+
+# Capacity of track per track
+param track_capacity := 10;
+
+# cost for building a new line from scratch per mile in million $ or so.  This new line line have one track
+param cost_new_line := 7;
+
+# cost for adding additional track to existing line per mile in million $ or so
+param cost_add_track := 5;
+
+# cost for increasing capacity at node per handling units
+param cost_reload_bldg := 1000;
+#param cost_reload_bldg := 500;
+
+# Nodes and their coordinates
+param: 
+ STATIONS: x_coor y_coor reload_bldg_exist :=
+   1        0      0   4
+   2       50     50   5
+   3      250     50   4
+   4      400     50   4
+   5        0    100   6
+   6      250    100   4
+   7      150    150   2
+   8      300    150   4
+   9       50    200   4
+  10      350    200   6
+  11      150    250   3
+  12      100    300   3
+  13      400    300   7
+  14      250    350   4;
+
+param: tracks_exist :=
+   [  1,  2]    2
+   [  1,  5]    1
+   [  2,  3]    2
+   [  2,  5]    2
+   [  2,  7]    1
+   [  3,  4]    3
+   [  4, 10]    2
+   [  5,  9]    3
+   [  6,  7]    1
+   [  6,  8]    2
+   [  8, 10]    2
+   [  9, 12]    2
+   [ 10, 13]    3
+   [ 11, 12]    2
+   [ 11, 14]    2
+   [ 13, 14]    3
+;
+
+param: line_exist :=
+   [  1,  2]    1
+   [  1,  5]    1
+   [  2,  3]    1
+   [  2,  5]    1
+   [  2,  7]    1
+   [  3,  4]    1
+   [  4, 10]    1
+   [  5,  9]    1
+   [  6,  7]    1
+   [  6,  8]    1
+   [  8, 10]    1
+   [  9, 12]    1
+   [ 10, 13]    1
+   [ 11, 12]    1
+   [ 11, 14]    1
+   [ 13, 14]    1
+;
+
+
+# Scenario 5
+param: DELIVS: volume :=
+   [  1, 13]    17
+   [  5, 10]     8
+   [  9,  4]     8
+   [ 14,  3]     7
+   [ 13,  6]     6
+   [ 10,  1]     8
+   [ 10,  9]     4
+   [ 11,  6]     5
+   [  9, 10]    20
+   [  4, 11]    10
+;

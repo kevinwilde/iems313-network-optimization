@@ -117,7 +117,7 @@ subject to cant_destroy_tracks {(i,j) in LINES}:
   
 # If line existed between stations i and j in sourceal set up, it must still exist at end
 subject to cant_destroy_lines {(i,j) in LINES}:
-  x_line_exist[i,j] >= line_exist[i,j];  
+  x_line_exist[i,j] >= line_exist[i,j];
   
 # Tracks can only handle track_capacity units
 subject to cant_exceed_track_capacity {(i,j) in ARCS}:
