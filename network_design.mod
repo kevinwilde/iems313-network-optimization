@@ -71,7 +71,6 @@ param cost_add_track;
 # x_line_exist[i,j] = 1
 param M := (1/track_capacity) * sum{(s,d) in DELIVS} volume[s,d];
 
-
 ###################################################
 # VARIABLES
 
@@ -127,7 +126,9 @@ subject to cant_exceed_track_capacity {(i,j) in ARCS}:
 # Reloading buildings can only handle load_per_building incoming units
 # Todo: Needs to handle units that come from source
 subject to cant_exceed_reloading_bldg_capacity {k in STATIONS}:
-  sum{(s,d) in DELIVS, (i,j) in ARCS: j==k} x_num_units[s,d,i,j] <= load_per_building * x_num_reload_bldg[k];
+  sum{(s,d) in DELIVS, (i,k) in ARCS} x_num_units[s,d,i,k] 	# incoming units
+  + sum{(k,d) in DELIVS} volume[k,d]						# plus units from a source
+  <= load_per_building * x_num_reload_bldg[k];
 
 # Source must have entire shipment volume sent out
 subject to entire_shipment_sent {(source,dest) in DELIVS}:
