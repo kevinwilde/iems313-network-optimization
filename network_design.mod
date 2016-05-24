@@ -148,10 +148,6 @@ subject to balanced_along_path {(source,dest) in DELIVS, k in STATIONS: k != sou
   - sum{(k,j) in ARCS} x_num_units[source,dest,k,j]
   = 0;
 
-# Can only have existing tracks if line_exist = 1
-subject to bigM_existing_tracks_constraint {(i,j) in LINES}:
-  tracks_exist[i,j] <= M * line_exist[i,j];
-
 # Can only have tracks if x_line_exist = 1
 # Need two constraints since x_line_exist[i,j] is only defined for i < j
 subject to bigM_tracks_constraint {(i,j) in ARCS: i < j}:
