@@ -124,28 +124,27 @@ subject to cant_exceed_track_capacity {(i,j) in ARCS}:
   sum{(s,d) in DELIVS} x_num_units[s,d,i,j] <= track_capacity * x_num_tracks[i,j];
 
 # Reloading buildings can only handle load_per_building incoming units
-# Todo: Needs to handle units that come from source
 subject to cant_exceed_reloading_bldg_capacity {k in STATIONS}:
   sum{(s,d) in DELIVS, (i,k) in ARCS} x_num_units[s,d,i,k] 	# incoming units
   + sum{(k,d) in DELIVS} volume[k,d]						# plus units from a source
   <= load_per_building * x_num_reload_bldg[k];
 
 # Source must have entire shipment volume sent out
-subject to entire_shipment_sent {(source,dest) in DELIVS}:
-  sum{(i,source) in ARCS} x_num_units[source,dest,i,source]
-  - sum{(source,j) in ARCS} x_num_units[source,dest,source,j]
-  = -volume[source,dest];
+subject to entire_shipment_sent {(s,d) in DELIVS}:
+  sum{(i,s) in ARCS} x_num_units[s,d,i,s]
+  - sum{(s,j) in ARCS} x_num_units[s,d,s,j]
+  = -volume[s,d];
 
 # Destination must have entire shipment come in
-subject to entire_shipment_arrives {(source,dest) in DELIVS}:
-  sum{(i,dest) in ARCS} x_num_units[source,dest,i,dest]
-  - sum{(dest,j) in ARCS} x_num_units[source,dest,dest,j]
-  = volume[source,dest];
+subject to entire_shipment_arrives {(s,d) in DELIVS}:
+  sum{(i,d) in ARCS} x_num_units[s,d,i,d]
+  - sum{(d,j) in ARCS} x_num_units[s,d,d,j]
+  = volume[s,d];
 
 # All other stations must have equal volume coming in and going out
-subject to balanced_along_path {(source,dest) in DELIVS, k in STATIONS: k != source && k != dest}:
-  sum{(i,k) in ARCS} x_num_units[source,dest,i,k]
-  - sum{(k,j) in ARCS} x_num_units[source,dest,k,j]
+subject to balanced_along_path {(s,d) in DELIVS, k in STATIONS: k != s && k != d}:
+  sum{(i,k) in ARCS} x_num_units[s,d,i,k]
+  - sum{(k,j) in ARCS} x_num_units[s,d,k,j]
   = 0;
 
 # Can only have tracks if x_line_exist = 1
